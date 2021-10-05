@@ -6,7 +6,7 @@ import Button from './components/Button'
 function App() {
   return (
     <Fragment>
-      <Button/>
+      <Button textButton="Dissoudre"/>
     </Fragment>
   );
 }
