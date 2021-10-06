@@ -1,12 +1,12 @@
 import {Fragment} from 'react'
 import './App.css';
 
-import Button from './components/Button'
+import Login from './pages/Login'
 
 function App() {
   return (
     <Fragment>
-      <Button textButton="Dissoudre"/>
+      <Login />
     </Fragment>
   );
 }
