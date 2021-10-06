@@ -1,0 +1,26 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  // Files.
+  "files.eol": "\n",
+  "files.encoding": "utf8",
+  // Line length helper and indentation (prettier like).
+  "editor.rulers": [80, 120],
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  // ESLint / Prettier.
+  "eslint.validate": ["javascript", "typescript"],
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[javascript]": { "editor.formatOnSave": true },
+  "[typescript]": { "editor.formatOnSave": true },
+  // TS.
+  "typescript.tsdk": "node_modules/typescript/lib",
+  // Misc.
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/coverage": true
+  }
+}
