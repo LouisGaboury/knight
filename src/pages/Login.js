@@ -4,7 +4,7 @@ import ConnexionForm from "../components/ConnexionForm";
 
 const Login = (props) => {
   return (
-    <div className="flex justify-center rounded-xs mx-auto mt-12 shadow-md w-4/6 h-3/4">
+    <div className="flex flex-col justify-center rounded-xs mx-auto mt-12 shadow-md w-4/6 h-3/4">
       <ConnexionForm />
       <Button textButton="Connexion" />
     </div>
