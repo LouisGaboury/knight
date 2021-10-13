@@ -1,6 +1,6 @@
 const ConnexionForm = (props) => {
   return (
-    <form className="mb-36">
+    <form className="mb-24">
       <fieldset>
         <div className="flex flex-col mx-4 mb-4">
           <label for="login">login</label>

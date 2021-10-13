@@ -1,45 +1,56 @@
-import react, { useState } from "react";
+import { useState, Fragment } from "react";
 import Button from "../components/Button";
 import ConnexionForm from "../components/ConnexionForm";
 
 const Login = (props) => {
   const [action, setAction] = useState("signIn");
 
-  if (action !== "signIn") {
+  /* if (action !== "signIn") {
     return <SignUp />;
   }
-  return <SignIn />;
+  return <SignIn />; */
+
+  return (
+    <Fragment>
+      <img
+        src="/logoK32.png"
+        alt="logo de Knight"
+        className="max-w-md mx-auto mt-24"
+      />
+      <div className="flex flex-col rounded-xs mx-auto mt-8 shadow-md w-4/6 max-w-lg h-2/4">
+        <div className="flex mb-12">
+          <span className="w-1/2 h-8 text-center italic shadow-noBottom">
+            Connexion
+          </span>
+          <span className="w-1/2 h-8 text-center italic shadow-md">
+            Inscription
+          </span>
+        </div>
+        {action !== "signUp" ? <SignIn /> : <SignUp />}
+      </div>
+    </Fragment>
+  );
 };
 
 const SignIn = (props) => {
-  const [connected, setConnedted] = useState(false);
+  // TODO - Make a state for connection ?
   // TODO - make this state bubble-up
   // TODO - link with Supabase for testing API connexion
 
   return (
-    <div className="flex flex-col justify-center rounded-xs mx-auto mt-12 shadow-md w-4/6 max-w-lg h-3/4">
-      <img
-        src="/logoK32.png"
-        alt="logo de Knight"
-        className="max-w-md mx-auto mb-28"
-      />
+    <Fragment>
       <ConnexionForm />
       <Button textButton="Connexion" />
-    </div>
+    </Fragment>
   );
 };
 
 const SignUp = (props) => {
   return (
-    <div className="flex flex-col justify-center rounded-xs mx-auto mt-12 shadow-md w-4/6 max-w-lg h-3/4">
-      <img
-        src="/logoK32.png"
-        alt="logo de Knight"
-        className="max-w-md mx-auto mb-28"
-      />
+    <Fragment>
       <ConnexionForm />
-      <Button textButton="Connexion" />
-    </div>
+      <Button textButton="Inscription" />
+    </Fragment>
   );
 };
 

@@ -10,6 +10,9 @@ module.exports = {
       blue: colors.sky,
       gray: colors.blueGray,
     },
+    boxShadow: {
+      noBottom: "5px -8px 15px -3px rgba(0, 0, 0, 0.1)",
+    },
   },
   variants: {
     extend: {},
