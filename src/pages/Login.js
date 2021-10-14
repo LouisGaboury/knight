@@ -3,12 +3,11 @@ import Button from "../components/Button";
 import ConnexionForm from "../components/ConnexionForm";
 
 const Login = (props) => {
-  const [action, setAction] = useState("signIn");
+  const [isConnexion, setIsConnexion] = useState(true);
 
-  /* if (action !== "signIn") {
-    return <SignUp />;
-  }
-  return <SignIn />; */
+  const toggleAction = () => {
+    setIsConnexion(!isConnexion);
+  };
 
   return (
     <Fragment>
@@ -19,14 +18,26 @@ const Login = (props) => {
       />
       <div className="flex flex-col rounded-xs mx-auto mt-8 shadow-md w-4/6 max-w-lg h-2/4">
         <div className="flex mb-12">
-          <span className="w-1/2 h-8 text-center italic shadow-noBottom">
+          <button
+            className={
+              "w-1/2 h-8 text-center italic " +
+              (isConnexion ? "shadow-noBottom" : "shadow-md")
+            }
+            onClick={toggleAction}
+          >
             Connexion
-          </span>
-          <span className="w-1/2 h-8 text-center italic shadow-md">
+          </button>
+          <button
+            className={
+              "w-1/2 h-8 text-center italic " +
+              (isConnexion ? "shadow-md" : "shadow-noBottom")
+            }
+            onClick={toggleAction}
+          >
             Inscription
-          </span>
+          </button>
         </div>
-        {action !== "signUp" ? <SignIn /> : <SignUp />}
+        {isConnexion !== false ? <SignIn /> : <SignUp />}
       </div>
     </Fragment>
   );
