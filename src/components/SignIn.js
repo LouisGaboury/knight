@@ -1,16 +1,38 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import ConnexionForm from "./ConnexionForm";
 import Button from "./Button";
+import { supabase } from "../supabaseClient";
 
 const SignIn = (props) => {
-  // TODO - Make a state for connection ?
-  // TODO - make this state bubble-up
-  // TODO - link with Supabase for testing API connexion
+  const [userCredentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleLogin = async () => {
+    try {
+      const { user, session, error } = await supabase.auth.signIn({
+        email: userCredentials.email,
+        password: userCredentials.password,
+      });
+      if (error) throw error;
+      console.log(user);
+      console.log(session);
+    } catch (error) {
+      alert(error.error_description || error.message);
+    }
+  };
 
   return (
     <Fragment>
       <ConnexionForm />
-      <Button textButton="Connexion" />
+      <Button
+        textButton="Connexion"
+        onClick={(event) => {
+          event.preventDefault();
+          handleLogin();
+        }}
+      />
     </Fragment>
   );
 };
