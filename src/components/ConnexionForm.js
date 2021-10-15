@@ -8,7 +8,7 @@ const ConnexionForm = (props) => {
         </div>
         <div className="flex flex-col mx-4 mb-4">
           <label for="password">mot de passe</label>
-          <input type="text" name="password" id="password"></input>
+          <input type="password" name="password" id="password"></input>
         </div>
       </fieldset>
     </form>
