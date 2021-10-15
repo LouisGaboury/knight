@@ -1,10 +1,14 @@
 import { useState, Fragment } from "react";
-import Button from "../components/Button";
-import ConnexionForm from "../components/ConnexionForm";
+// Imports des composants extérieurs
+import SignUp from "../components/SignUp";
+import SignIn from "../components/SignIn";
 
 const Login = (props) => {
   const [isConnexion, setIsConnexion] = useState(true);
 
+  /**
+   * @description Permet de changer l'état de isConnexion (true-false) pour switcher entre la connexion et l'inscription
+   */
   const toggleAction = () => {
     setIsConnexion(!isConnexion);
   };
@@ -39,28 +43,6 @@ const Login = (props) => {
         </div>
         {isConnexion !== false ? <SignIn /> : <SignUp />}
       </div>
-    </Fragment>
-  );
-};
-
-const SignIn = (props) => {
-  // TODO - Make a state for connection ?
-  // TODO - make this state bubble-up
-  // TODO - link with Supabase for testing API connexion
-
-  return (
-    <Fragment>
-      <ConnexionForm />
-      <Button textButton="Connexion" />
-    </Fragment>
-  );
-};
-
-const SignUp = (props) => {
-  return (
-    <Fragment>
-      <ConnexionForm />
-      <Button textButton="Inscription" />
     </Fragment>
   );
 };
