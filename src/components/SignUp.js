@@ -6,6 +6,7 @@ const SignUp = (props) => {
   const [userCredentials, setCredentials] = useState({
     email: "",
     password: "",
+    username: "",
   });
 
   /**
@@ -47,7 +48,7 @@ const SignUp = (props) => {
     try {
       const { error } = await supabase
         .from("profiles")
-        .insert([{ id: id, username: "test" }]);
+        .insert([{ id: id, username: userCredentials.username }]);
       if (error) throw error;
       return true;
     } catch (error) {
@@ -72,6 +73,21 @@ const SignUp = (props) => {
                     ...prevState,
                     // Ne change que la valeur qui nous intéresse
                     email: event.target.value,
+                  }));
+                }}
+              ></input>
+            </div>
+            <div className="flex flex-col mx-4 mb-4">
+              <label>nom d'utilisateur</label>
+              <input
+                type="text"
+                value={userCredentials.username}
+                onChange={(event) => {
+                  setCredentials((prevState) => ({
+                    // Charge le state précédent
+                    ...prevState,
+                    // Ne change que la valeur qui nous intéresse
+                    username: event.target.value,
                   }));
                 }}
               ></input>
