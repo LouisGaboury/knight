@@ -17,14 +17,17 @@ const SignIn = (props) => {
   const handleLogin = async () => {
     try {
       // Se connecte à Supabase pour chercher le user
-      const { user, session, error } = await supabase.auth.signIn({
+      const { error } = await supabase.auth.signIn({
         email: userCredentials.email,
         password: userCredentials.password,
       });
       // Si erreur => soulève l'erreur
       if (error) throw error;
-      console.log(user);
-      console.log(session);
+      // Si ok => passe à la suite
+      if (!userCredentials.password) {
+        alert("Vérifiez votre email pour le lien de connexion");
+      }
+      console.log("Authentification ok");
     } catch (error) {
       alert(error.error_description || error.message);
     }

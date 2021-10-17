@@ -3,11 +3,11 @@ const ConnexionForm = (props) => {
     <form className="mb-24">
       <fieldset>
         <div className="flex flex-col mx-4 mb-4">
-          <label for="login">login</label>
+          <label>login</label>
           <input type="text" name="login" id="login"></input>
         </div>
         <div className="flex flex-col mx-4 mb-4">
-          <label for="password">mot de passe</label>
+          <label>mot de passe</label>
           <input type="password" name="password" id="password"></input>
         </div>
       </fieldset>
