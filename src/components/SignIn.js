@@ -1,12 +1,14 @@
 import { Fragment, useState } from "react";
-import Button from "./Button";
 import { supabase } from "../supabaseClient";
+import { useHistory } from "react-router-dom";
+import Button from "./Button";
 
 const SignIn = (props) => {
   const [userCredentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+  const history = useHistory();
 
   /**
    * @async
@@ -28,6 +30,7 @@ const SignIn = (props) => {
         alert("Vérifiez votre email pour le lien de connexion");
       }
       console.log("Authentification ok");
+      history.push("/home");
     } catch (error) {
       alert(error.error_description || error.message);
     }

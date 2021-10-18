@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import Button from "./Button";
 import { supabase } from "../supabaseClient";
+import { useHistory } from "react-router";
 
 const SignUp = (props) => {
   const [userCredentials, setCredentials] = useState({
@@ -8,6 +9,7 @@ const SignUp = (props) => {
     password: "",
     username: "",
   });
+  const history = useHistory();
 
   /**
    * @async
@@ -28,6 +30,7 @@ const SignUp = (props) => {
       if (register) {
         // Si ok => tout va bien
         console.log("Enregistrement ok");
+        history.push("/home");
       } else {
         // Si erreur => dire que c'est la sauce
         throw new Error("L'enregistrement a échoué");
