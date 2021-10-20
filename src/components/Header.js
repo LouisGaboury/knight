@@ -5,25 +5,28 @@ const Header = (props) => {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    console.log(props.userID);
     async function findLord() {
       try {
+        // Trouve le bon lord dans la BDD
         const { data, error } = await supabase
           .from("lord")
           .select("name")
           .eq("joueur", props.userID);
+        // Fixe le nom du lord dans le state pour affichage
         setName(data[0].name);
         if (error) throw error;
       } catch (error) {
         alert(error.error_description || error.message);
       }
     }
+    // Déclenche la fonction ci-dessus
     findLord();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <header>
-      <p>Bienvenue, seigneur {name}</p>
+    <header className={"bg-blue-300 h-20 align-middle"}>
+      <p className={"align-middle h-full"}>Bienvenue, seigneur {name}</p>
     </header>
   );
 };
