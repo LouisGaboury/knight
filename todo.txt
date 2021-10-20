@@ -1,0 +1,13 @@
+Nouvel user :
+1) Nouvel user
+2) Créer le Chevalier de la TR (lord)
+3) Créer la section (section)
+--------------------------------------
+Nouvelle coterie :
+1) Nouvelle coterie (coterie)
+2) Nouveau sénéchal (seneschal)
+--------------------------------------
+A la connexion :
+1) Trouver le lord where lord.id === user.id
+--------------------------------------
+Faire une page de reset de password u_u
