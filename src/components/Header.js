@@ -12,7 +12,7 @@ const Header = (props) => {
           .from("lord")
           .select("name")
           .eq("joueur", props.userID);
-        setName(data);
+        setName(data[0].name);
         if (error) throw error;
       } catch (error) {
         alert(error.error_description || error.message);

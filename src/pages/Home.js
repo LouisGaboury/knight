@@ -5,17 +5,18 @@ import Header from "../components/Header";
 
 const Home = () => {
   const [user, setUser] = useState({});
+  // Loading -> empêche d'
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setUser(supabase.auth.user());
-    // console.log(Object.keys(user));
-    // console.log(user.id);
+    setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Fragment>
-      <Header userID={user.id} />
+      {!loading ? <Header userID={user.id} /> : <Fragment />}
       Bienvenue sur la page d'accueil de Knight
     </Fragment>
   );
