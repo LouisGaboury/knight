@@ -46,11 +46,11 @@ export class Coterie {
    * @param {number} section_id
    * @param {number} seneschal_id
    * @param {string} rank
-   * @param {number} sante
-   * @param {number} espoir
+   * @param {number} health
+   * @param {number} hope
    * @param {number} xp
    */
-  constructor(id, section_id, seneschal_id, rank, sante, espoir, xp) {
+  constructor(id, section_id, seneschal_id, rank, health, hope, xp) {
     /**
      * @type {number}
      * @public
@@ -75,12 +75,12 @@ export class Coterie {
      * @type {number} Entre 0 et 100
      * @public
      */
-    this.sante = sante;
+    this.health = health;
     /**
      * @type {number} Entre 0 et 100
      * @public
      */
-    this.espoir = espoir;
+    this.hope = hope;
     /**
      * @type {number} Entre 0 et 100
      * @public

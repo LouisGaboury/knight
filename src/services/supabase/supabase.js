@@ -48,8 +48,8 @@ export async function findCoteries(sectionID) {
           coterie.section_id,
           coterie.seneschal_id,
           coterie.rank,
-          coterie.sante,
-          coterie.espoir,
+          coterie.health,
+          coterie.hope,
           coterie.xp
         )
       );
