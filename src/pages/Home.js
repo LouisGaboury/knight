@@ -2,6 +2,7 @@ import { Fragment, useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 
 import Header from "../components/Header";
+import Coteries from "../components/Coteries";
 
 const Home = () => {
   const [user, setUser] = useState({});
@@ -15,12 +16,20 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <Fragment>
-      {!loading ? <Header userID={user.id} /> : <Fragment />}
-      Bienvenue sur la page d'accueil de Knight
-    </Fragment>
-  );
+  const displayLoading = () => {
+    return <Fragment />;
+  };
+
+  const displayLoaded = () => {
+    return (
+      <Fragment>
+        <Header userID={user.id} />
+        <Coteries userID={user.id} />
+      </Fragment>
+    );
+  };
+
+  return !loading ? displayLoaded() : displayLoading();
 };
 
 export default Home;

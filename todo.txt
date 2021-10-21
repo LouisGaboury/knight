@@ -4,10 +4,10 @@ Nouvel user :
 3) Créer la section (section)
 --------------------------------------
 Nouvelle coterie :
-1) Nouvelle coterie (coterie)
 2) Nouveau sénéchal (seneschal)
---------------------------------------
-A la connexion :
-1) Trouver le lord where lord.id === user.id
+1) Nouvelle coterie (coterie)
 --------------------------------------
 Faire une page de reset de password u_u
+--------------------------------------
+schéma pour join :
+.select("[champ_visé_pour_join]:[table] ([champ voulu]")

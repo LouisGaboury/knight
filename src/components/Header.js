@@ -11,7 +11,7 @@ const Header = (props) => {
         const { data, error } = await supabase
           .from("lord")
           .select("name")
-          .eq("joueur", props.userID);
+          .eq("joueur_id", props.userID);
         // Fixe le nom du lord dans le state pour affichage
         setName(data[0].name);
         if (error) throw error;
