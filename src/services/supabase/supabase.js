@@ -29,7 +29,7 @@ export async function findSection(userID) {
 
 /**
  * @async
- * @description
+ * @description Retrouve les coteries liées à l'ID d'une section
  * @param {number} sectionID
  * @returns {Promise<Coterie[]>}
  */

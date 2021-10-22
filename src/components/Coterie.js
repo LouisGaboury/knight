@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 const Coterie = ({ getCoteries }) => {
   const [coteries, setCoteries] = useState([]);
 
+  // Se déclenche dès que getCoteries est updated
   useEffect(() => {
     setCoteries(getCoteries());
   }, [getCoteries]);
