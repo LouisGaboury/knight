@@ -27,8 +27,8 @@ const Section = (props) => {
   }, [coteries]);
 
   return (
-    <div className="h-32 w-32 shadow-md">
-      <h3>{section.name}</h3>
+    <div className="h-2/5 w-4/5 shadow-md bg-gray-100 mx-auto mt-8">
+      <h3 className="text-6xl pt-4 mb-8 text-center">{section.name}</h3>
       <Coterie getCoteries={getCoteries} />
     </div>
   );
