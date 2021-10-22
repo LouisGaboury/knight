@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 
 import Header from "../components/Header";
-import Coteries from "../components/Coteries";
+import Section from "../components/Section";
 
 const Home = () => {
   const [user, setUser] = useState({});
@@ -24,7 +24,7 @@ const Home = () => {
     return (
       <Fragment>
         <Header userID={user.id} />
-        <Coteries userID={user.id} />
+        <Section userID={user.id} />
       </Fragment>
     );
   };
