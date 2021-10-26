@@ -11,3 +11,5 @@ Faire une page de reset de password u_u
 --------------------------------------
 schéma pour join :
 .select("[champ_visé_pour_join]:[table] ([champ voulu]")
+--------------------------------------
+Faire sois même les progress rings ! (demander à Béa ?)
