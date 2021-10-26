@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { useHistory } from "react-router-dom";
-import Button from "./Button";
+import ActionButton from "./ActionButton";
 
 const SignIn = (props) => {
   const [userCredentials, setCredentials] = useState({
@@ -73,7 +73,7 @@ const SignIn = (props) => {
           </div>
         </fieldset>
       </form>
-      <Button
+      <ActionButton
         textButton="Connexion"
         onClick={(event) => {
           // Utilisation de preventDefault() pour empêcher le rafraichissement de la page

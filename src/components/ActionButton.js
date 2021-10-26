@@ -1,4 +1,4 @@
-const Button = (props) => {
+const ActionButton = (props) => {
   return (
     <button
       onClick={props.onClick}
@@ -11,4 +11,4 @@ const Button = (props) => {
   );
 };
 
-export default Button;
+export default ActionButton;

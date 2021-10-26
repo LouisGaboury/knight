@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import Button from "./Button";
+import ActionButton from "./ActionButton";
 import { supabase } from "../supabaseClient";
 import { useHistory } from "react-router";
 
@@ -112,7 +112,7 @@ const SignUp = (props) => {
             </div>
           </fieldset>
         </form>
-        <Button
+        <ActionButton
           textButton="Inscription"
           onClick={(event) => {
             // Utilisation de preventDefault() pour empêcher le rafraichissement de la page
