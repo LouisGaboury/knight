@@ -2,19 +2,26 @@ import { Fragment, useEffect, useState } from "react";
 
 const Coterie = ({ getCoteries }) => {
   const [coteries, setCoteries] = useState([]);
+  const [focus, setFocus] = useState(0);
 
   // Se déclenche dès que getCoteries est updated
   useEffect(() => {
     setCoteries(getCoteries());
   }, [getCoteries]);
 
-  return (
-    <Fragment>
-      {coteries.map((coterie) => (
-        <div key={coterie.id}>{coterie.rank}</div>
-      ))}
-    </Fragment>
-  );
+  const displayLoading = () => {
+    return <Fragment />;
+  };
+
+  const displayLoaded = () => {
+    return (
+      <section>
+        <h5>Coterie n°{coteries[focus].id}</h5>
+      </section>
+    );
+  };
+
+  return coteries.length > 0 ? displayLoaded() : displayLoading();
 };
 
 export default Coterie;
