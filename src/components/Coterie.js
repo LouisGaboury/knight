@@ -1,4 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 const Coterie = ({ getCoteries }) => {
   const [coteries, setCoteries] = useState([]);
@@ -40,9 +42,10 @@ const Coterie = ({ getCoteries }) => {
   const displayLoaded = () => {
     return (
       <section>
-        <h5 className="mb-6 mt-2 text-center text-2xl">
+        <h5 className="mb-6 mt-4 text-center text-2xl">
           Coterie n°{coteries[focus].id}
         </h5>
+        {/* div des boutons */}
         <div className="flex justify-between">
           <button
             onClick={changeFocus}
@@ -85,6 +88,35 @@ const Coterie = ({ getCoteries }) => {
               />
             </svg>
           </button>
+        </div>
+        {/* div des indicateurs (santé, pex, espoir) */}
+        <div className="relative -top-6 flex flex-row justify-around mx-10">
+          <div className="w-40 h-40">
+            <CircularProgressbar
+              value={coteries[focus].health}
+              text={`${coteries[focus].health}%`}
+              styles={{
+                path: {
+                  stroke: "#d1280f",
+                },
+                text: {
+                  fill: "#d1280f",
+                },
+              }}
+            />
+          </div>
+          <div className="w-40 h-40">
+            <CircularProgressbar
+              value={coteries[focus].hope}
+              text={`${coteries[focus].hope}%`}
+            />
+          </div>
+          <div className="w-40 h-40">
+            <CircularProgressbar
+              value={coteries[focus].xp}
+              text={`${coteries[focus].xp}%`}
+            />
+          </div>
         </div>
       </section>
     );
