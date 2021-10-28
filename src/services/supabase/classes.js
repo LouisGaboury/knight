@@ -88,3 +88,47 @@ export class Coterie {
     this.xp = xp;
   }
 }
+
+/**
+ * Leader d'une coterie et son interface auprès du Knight et des instances publiques
+ * @class
+ * @constructor
+ * @public
+ */
+export class Seneschal {
+  /**
+   * @constructor
+   * @param {number} id
+   * @param {string} name
+   * @param {Array<Object>} weapons
+   * @param {Array<Object>} modules
+   * @param {string} armor
+   */
+  constructor(id, name, weapons, modules, armor) {
+    /**
+     * @type {number}
+     * @public
+     */
+    this.id = id;
+    /**
+     * @type {string}
+     * @public
+     */
+    this.name = name;
+    /**
+     * @type {Array<Object>}
+     * @public
+     */
+    this.weapons = weapons;
+    /**
+     * @type {Array<Object>}
+     * @public
+     */
+    this.modules = modules;
+    /**
+     * @type {string}
+     * @public
+     */
+    this.armor = armor;
+  }
+}
