@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { findCoteries } from "../services/supabase/supabase";
 import Coterie from "./Coterie";
 
