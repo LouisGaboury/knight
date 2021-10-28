@@ -8,6 +8,7 @@ const Section = (props) => {
 
   useEffect(() => {
     findSection(props.userID).then((res) => setSection(res));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

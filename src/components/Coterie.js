@@ -4,15 +4,15 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ActionButton from "./ActionButton";
 
-const Coterie = (props) => {
+const Coterie = ({ idSection }) => {
   const [coteries, setCoteries] = useState(null);
   const [focus, setFocus] = useState(0);
 
   useEffect(() => {
-    if (props.idSection) {
-      findCoteries(props.idSection).then((res) => setCoteries(res));
+    if (idSection) {
+      findCoteries(idSection).then((res) => setCoteries(res));
     }
-  }, [props]);
+  }, [idSection]);
 
   // Allow to control witch coterie is shown
   const changeFocus = (event) => {
