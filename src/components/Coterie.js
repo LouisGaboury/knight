@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import ActionButton from "./ActionButton";
 
 const Coterie = ({ getCoteries }) => {
   const [coteries, setCoteries] = useState([]);
@@ -42,10 +43,10 @@ const Coterie = ({ getCoteries }) => {
   const displayLoaded = () => {
     return (
       <section>
-        <h5 className="mb-6 mt-4 text-center text-2xl">
+        <h5 className="mb-6 mt-4 text-center text-3xl">
           Coterie n°{coteries[focus].id}
         </h5>
-        {/* div des boutons */}
+        {/* boutons de switch sur le côté */}
         <div className="flex justify-between">
           <button
             onClick={changeFocus}
@@ -89,9 +90,10 @@ const Coterie = ({ getCoteries }) => {
             </svg>
           </button>
         </div>
-        {/* div des indicateurs (santé, pex, espoir) */}
-        <div className="relative -top-6 flex flex-row justify-around mx-10">
+        {/* indicateurs circulaires (santé, pex, espoir) */}
+        <div className="relative mb-10 -top-10 flex flex-row justify-around mx-10">
           <div className="w-40 h-40">
+            <p className="mb-4 text-center text-lg font-bold">Santé</p>
             <CircularProgressbar
               value={coteries[focus].health}
               text={`${coteries[focus].health}%`}
@@ -106,16 +108,41 @@ const Coterie = ({ getCoteries }) => {
             />
           </div>
           <div className="w-40 h-40">
+            <p className="mb-4 text-center text-lg font-bold">Espoir</p>
             <CircularProgressbar
               value={coteries[focus].hope}
               text={`${coteries[focus].hope}%`}
             />
           </div>
           <div className="w-40 h-40">
+            <p className="mb-4 text-center text-lg font-bold">XP</p>
             <CircularProgressbar
               value={coteries[focus].xp}
               text={`${coteries[focus].xp}%`}
             />
+          </div>
+        </div>
+        {/* historique et boutons d'action */}
+        <div className="flex">
+          {/* historique */}
+          <div className="w-1/2">
+            <ul>
+              <li>Sénéchal :</li>
+              <li>Rang : {coteries[focus].rank}</li>
+              <li>Mission actuelle :</li>
+              <li>Missions totales :</li>
+            </ul>
+          </div>
+          {/* boutons d'action */}
+          <div className="flex flex-col justify-around w-1/2">
+            <div className="flex justify-around mb-4">
+              <ActionButton textButton={"Se reposer"} />
+              <ActionButton textButton={"Entrainer"} />
+            </div>
+            <div className="flex justify-around">
+              <ActionButton textButton={"Rappeler"} />
+              <ActionButton textButton={"Dissoudre"} />
+            </div>
           </div>
         </div>
       </section>
