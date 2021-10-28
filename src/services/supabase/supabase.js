@@ -108,6 +108,7 @@ export async function findMissions(coterieID) {
         )
       );
     });
+    return missions;
   } catch (error) {
     alert(error.error_description || error.message);
   }
