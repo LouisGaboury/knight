@@ -65,7 +65,7 @@ export class Coterie {
      * @type {number}
      * @public
      */
-    this.seneschal_ = seneschal_id;
+    this.seneschal_id = seneschal_id;
     /**
      * @type {string}
      * @public
