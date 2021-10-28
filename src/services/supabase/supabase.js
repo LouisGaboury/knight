@@ -1,5 +1,5 @@
 import { supabase } from "../../supabaseClient";
-import { Section, Coterie } from "./classes";
+import { Section, Coterie, Seneschal } from "./classes";
 
 /**
  * @async
@@ -55,6 +55,31 @@ export async function findCoteries(sectionID) {
       );
     });
     return coteries;
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
+/**
+ * @async
+ * @description
+ * @param {number} seneschalID
+ * @returns {Promise<Seneschal>}
+ */
+export async function findSeneschal(seneschalID) {
+  try {
+    const { data, error } = await supabase
+      .from("seneschal")
+      .select()
+      .eq("id", seneschalID);
+    if (error) throw error;
+    return new Seneschal(
+      data[0].id,
+      data[0].name,
+      data[0].weapons,
+      data[0].modules,
+      data[0].armor
+    );
   } catch (error) {
     alert(error.error_description || error.message);
   }
