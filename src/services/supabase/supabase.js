@@ -1,5 +1,5 @@
 import { supabase } from "../../supabaseClient";
-import { Section, Coterie, Seneschal } from "./classes";
+import { Section, Coterie, Seneschal, Mission } from "./classes";
 
 /**
  * @async
@@ -80,6 +80,34 @@ export async function findSeneschal(seneschalID) {
       data[0].modules,
       data[0].armor
     );
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
+export async function findMissions(coterieID) {
+  try {
+    const { data, error } = await supabase
+      .from("mission")
+      .select()
+      .eq("coterie_id", coterieID);
+    if (error) throw error;
+    const missions = [];
+    data.forEach((mission) => {
+      missions.push(
+        new Mission(
+          mission.id,
+          mission.faction_id,
+          mission.lord_id,
+          mission.coterie_id,
+          mission.title,
+          mission.description,
+          mission.status,
+          mission.localisation,
+          mission.difficulte
+        )
+      );
+    });
   } catch (error) {
     alert(error.error_description || error.message);
   }

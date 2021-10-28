@@ -132,3 +132,75 @@ export class Seneschal {
     this.armor = armor;
   }
 }
+
+export class Mission {
+  /**
+   * @constructor
+   * @param {number} id
+   * @param {number} faction_id
+   * @param {number} lord_id
+   * @param {number} coterie_id
+   * @param {string} title
+   * @param {string} description
+   * @param {string} status
+   * @param {Object} localisation
+   * @param {number} difficulte
+   */
+  constructor(
+    id,
+    faction_id,
+    lord_id,
+    coterie_id,
+    title,
+    description,
+    status,
+    localisation,
+    difficulte
+  ) {
+    /**
+     * @type {number}
+     * @public
+     */
+    this.id = id;
+    /**
+     * @type {number}
+     * @public
+     */
+    this.faction_id = faction_id;
+    /**
+     * @type {number}
+     * @public
+     */
+    this.lord_id = lord_id;
+    /**
+     * @type {number}
+     * @public
+     */
+    this.coterie_id = coterie_id;
+    /**
+     * @type {string}
+     * @public
+     */
+    this.title = title;
+    /**
+     * @type {string}
+     * @public
+     */
+    this.description = description;
+    /**
+     * @type {string}
+     * @public
+     */
+    this.status = status;
+    /**
+     * @type {Object}
+     * @public
+     */
+    this.localisation = localisation;
+    /**
+     * @type {number}
+     * @public
+     */
+    this.difficulte = difficulte;
+  }
+}
