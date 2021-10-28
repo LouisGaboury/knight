@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { findSection } from "../services/supabase/supabase";
 import { Section as SectionClass } from "../services/supabase/classes";
-import Coterie from "./Coterie";
+import CoteriesSlider from "./CoteriesSlider";
 
 const Section = (props) => {
   const [section, setSection] = useState(new SectionClass());
@@ -19,7 +19,7 @@ const Section = (props) => {
         possédés, etc. Ca sera fixe
       </p>
       <hr className="border-2 border-solid" />
-      <Coterie idSection={section.id} />
+      <CoteriesSlider idSection={section.id} />
     </div>
   );
 };

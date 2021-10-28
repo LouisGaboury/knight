@@ -4,7 +4,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ActionButton from "./ActionButton";
 
-const Coterie = ({ idSection }) => {
+const CoteriesSlider = ({ idSection }) => {
   const [coteries, setCoteries] = useState(null);
   const [focus, setFocus] = useState(0);
 
@@ -150,4 +150,4 @@ const Coterie = ({ idSection }) => {
   );
 };
 
-export default Coterie;
+export default CoteriesSlider;
