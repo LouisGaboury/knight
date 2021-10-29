@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { findCoteries } from "../services/supabase/supabase";
+import { getCoteries } from "../services/supabase/supabase";
 import Coterie from "./Coterie";
 
 const CoteriesSlider = ({ idSection }) => {
@@ -8,7 +8,7 @@ const CoteriesSlider = ({ idSection }) => {
 
   useEffect(() => {
     if (idSection) {
-      findCoteries(idSection).then((res) => setCoteries(res));
+      getCoteries(idSection).then((res) => setCoteries(res));
     }
   }, [idSection]);
 

@@ -2,17 +2,17 @@ import { Fragment, useEffect, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ActionButton from "./ActionButton";
-import { findSeneschal, findMissions } from "../services/supabase/supabase";
+import { getSeneschal, getMissions } from "../services/supabase/supabase";
 
 const Coterie = ({ coterie, handleFocus }) => {
   const [seneschal, setSeneschal] = useState("");
   const [missions, setMissions] = useState([]);
 
   useEffect(() => {
-    findSeneschal(coterie.seneschal_id).then((res) => {
+    getSeneschal(coterie.seneschal_id).then((res) => {
       setSeneschal(res);
     });
-    findMissions(coterie.id).then((res) => {
+    getMissions(coterie.id).then((res) => {
       setMissions(res);
     });
   }, [coterie]);
