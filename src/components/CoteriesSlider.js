@@ -12,6 +12,12 @@ const CoteriesSlider = ({ idSection }) => {
     }
   }, [idSection]);
 
+  const updateCoterie = (newCoterie) => {
+    let newCoteries = [...coteries];
+    newCoteries[focus] = newCoterie;
+    setCoteries(newCoteries);
+  };
+
   // Allow to control witch coterie is shown
   const changeFocus = (event) => {
     if (event.target.id === "forth") {
@@ -39,7 +45,11 @@ const CoteriesSlider = ({ idSection }) => {
   return (
     <section>
       {coteries && (
-        <Coterie coterie={coteries[focus]} handleFocus={changeFocus} />
+        <Coterie
+          coterie={coteries[focus]}
+          handleFocus={changeFocus}
+          updateCoterie={updateCoterie}
+        />
       )}
     </section>
   );

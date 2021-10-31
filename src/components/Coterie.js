@@ -2,9 +2,15 @@ import { Fragment, useEffect, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ActionButton from "./ActionButton";
-import { getSeneschal, getMissions } from "../services/supabase/supabase";
+import {
+  getSeneschal,
+  getMissions,
+  trainCoterie,
+} from "../services/supabase/supabase";
+// eslint-disable-next-line no-unused-vars
+import { Mission } from "../services/supabase/classes";
 
-const Coterie = ({ coterie, handleFocus }) => {
+const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
   const [seneschal, setSeneschal] = useState("");
   const [missions, setMissions] = useState([]);
 
@@ -16,6 +22,31 @@ const Coterie = ({ coterie, handleFocus }) => {
       setMissions(res);
     });
   }, [coterie]);
+
+  /**
+   * @description
+   * @param {Mission[]} missions
+   * @returns {string} Titre de la mission en cours
+   */
+  const findLastMission = (missions) => {
+    let lastMission = 0;
+    let index = 0;
+    missions.forEach((mission) => {
+      if (mission.id > lastMission) {
+        lastMission = mission.id;
+        index = missions.indexOf(mission);
+      }
+    });
+    return missions[index].title;
+  };
+
+  const handleTraining = async () => {
+    // Impossible d'aller au delà du niveau élite
+    if (coterie.rank !== "élite") {
+      const result = await trainCoterie(coterie.id, coterie.xp, coterie.rank);
+      updateCoterie(result[0]);
+    }
+  };
 
   return (
     <Fragment>
@@ -97,7 +128,10 @@ const Coterie = ({ coterie, handleFocus }) => {
           <ul>
             <li>Sénéchal : {seneschal.name}</li>
             <li>Rang : {coterie.rank}</li>
-            <li>Mission actuelle :</li>
+            <li>
+              Mission actuelle :
+              {missions.length > 0 ? findLastMission(missions) : " Aucune"}
+            </li>
             <li>Missions totales : {missions && missions.length}</li>
           </ul>
         </div>
@@ -105,7 +139,7 @@ const Coterie = ({ coterie, handleFocus }) => {
         <div className="flex flex-col justify-around w-1/2">
           <div className="flex justify-around mb-4">
             <ActionButton textButton={"Se reposer"} />
-            <ActionButton textButton={"Entrainer"} />
+            <ActionButton textButton={"Entrainer"} onClick={handleTraining} />
           </div>
           <div className="flex justify-around">
             <ActionButton textButton={"Rappeler"} />

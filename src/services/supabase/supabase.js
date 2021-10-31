@@ -30,8 +30,8 @@ export async function getSection(userID) {
 /**
  * @async
  * @description Retrouve les coteries liées à l'ID d'une section
- * @param {number} sectionID
- * @returns {Promise<Coterie[]>}
+ * @param {number} sectionID ID de la section dans les tables Supabase
+ * @returns {Promise<Coterie[]>} Un tableau de coteries
  */
 export async function getCoteries(sectionID) {
   try {
@@ -85,6 +85,12 @@ export async function getSeneschal(seneschalID) {
   }
 }
 
+/**
+ * @async
+ * @description Retrouve les missions à partir de l'ID de la coterie qui les a réalisé/les réalise
+ * @param {number} coterieID ID de la coterie dans les tables Supabase
+ * @returns {Promise<Mission[]>} Un tableau de missions
+ */
 export async function getMissions(coterieID) {
   try {
     const { data, error } = await supabase
@@ -109,6 +115,46 @@ export async function getMissions(coterieID) {
       );
     });
     return missions;
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
+/**
+ * @async
+ * @description Donne 10px de plus à une coterie. Si elle atteint 100 px : lui donne un niveau de plus
+ * @param {number} coterieID ID de la coterie à entrainer
+ * @param {number} coterieXP XP de la coterie qui est entrainée
+ * @returns {Promise<Coterie>} La coterie avec les valeurs mises à jour
+ */
+export async function trainCoterie(coterieID, coterieXP, coterieRank) {
+  try {
+    // Si la coterie ne passe pas de niveau
+    if (coterieXP < 90) {
+      const { data, error } = await supabase
+        .from("coterie")
+        .update({ xp: coterieXP + 10 })
+        .match({ id: coterieID });
+      if (error) throw error;
+      return data;
+      // Si la coterie passe au rang supérieur
+    } else {
+      if (coterieRank === "rookie") {
+        const { data, error } = await supabase
+          .from("coterie")
+          .update({ xp: 0, rank: "vétérans" })
+          .match({ id: coterieID });
+        if (error) throw error;
+        return data;
+      } else {
+        const { data, error } = await supabase
+          .from("coterie")
+          .update({ xp: 0, rank: "élite" })
+          .match({ id: coterieID });
+        if (error) throw error;
+        return data;
+      }
+    }
   } catch (error) {
     alert(error.error_description || error.message);
   }
