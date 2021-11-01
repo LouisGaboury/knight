@@ -104,6 +104,34 @@ export async function getMissions(coterieID) {
         new Mission(
           mission.id,
           mission.faction_id,
+          mission.coterie_id,
+          mission.title,
+          mission.description,
+          mission.status,
+          mission.localisation,
+          mission.difficulte
+        )
+      );
+    });
+    return missions;
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
+export async function getFreeMissions() {
+  try {
+    const { data, error } = await supabase
+      .from("mission")
+      .select()
+      .eq("coterie_id", null);
+    if (error) throw error;
+    const missions = [];
+    data.forEach((mission) => {
+      missions.push(
+        new Mission(
+          mission.id,
+          mission.faction_id,
           mission.lord_id,
           mission.coterie_id,
           mission.title,

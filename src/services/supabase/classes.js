@@ -138,7 +138,6 @@ export class Mission {
    * @constructor
    * @param {number} id
    * @param {number} faction_id
-   * @param {number} lord_id
    * @param {number} coterie_id
    * @param {string} title
    * @param {string} description
@@ -149,7 +148,6 @@ export class Mission {
   constructor(
     id,
     faction_id,
-    lord_id,
     coterie_id,
     title,
     description,
@@ -167,11 +165,6 @@ export class Mission {
      * @public
      */
     this.faction_id = faction_id;
-    /**
-     * @type {number}
-     * @public
-     */
-    this.lord_id = lord_id;
     /**
      * @type {number}
      * @public
