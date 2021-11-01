@@ -6,6 +6,7 @@ import {
   getSeneschal,
   getMissions,
   trainCoterie,
+  restCoterie,
 } from "../services/supabase/supabase";
 // eslint-disable-next-line no-unused-vars
 import { Mission } from "../services/supabase/classes";
@@ -44,8 +45,13 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
     // Impossible d'aller au delà du niveau élite
     if (coterie.rank !== "élite") {
       const result = await trainCoterie(coterie.id, coterie.xp, coterie.rank);
-      updateCoterie(result[0]);
+      updateCoterie(result);
     }
+  };
+
+  const handleRest = async () => {
+    const result = await restCoterie(coterie.id, coterie.health);
+    updateCoterie(result);
   };
 
   return (
@@ -138,7 +144,7 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
         {/* boutons d'action */}
         <div className="flex flex-col justify-around w-1/2">
           <div className="flex justify-around mb-4">
-            <ActionButton textButton={"Se reposer"} />
+            <ActionButton textButton={"Se reposer"} onClick={handleRest} />
             <ActionButton textButton={"Entrainer"} onClick={handleTraining} />
           </div>
           <div className="flex justify-around">
