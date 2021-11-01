@@ -119,12 +119,17 @@ export async function getMissions(coterieID) {
   }
 }
 
+/**
+ * @async
+ * @description Retourne toutes les missions non-assignées à une coterie
+ * @returns {Promise<Mission[]>} La promesse d'un tableau de missions
+ */
 export async function getFreeMissions() {
   try {
     const { data, error } = await supabase
       .from("mission")
       .select()
-      .eq("coterie_id", null);
+      .is("coterie_id", null);
     if (error) throw error;
     const missions = [];
     data.forEach((mission) => {
@@ -132,7 +137,6 @@ export async function getFreeMissions() {
         new Mission(
           mission.id,
           mission.faction_id,
-          mission.lord_id,
           mission.coterie_id,
           mission.title,
           mission.description,
