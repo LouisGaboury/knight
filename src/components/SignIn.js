@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { supabase } from "../supabaseClient";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ActionButton from "./ActionButton";
 
 const SignIn = (props) => {
@@ -8,7 +8,7 @@ const SignIn = (props) => {
     email: "",
     password: "",
   });
-  const history = useHistory();
+  const navigate = useNavigate();
 
   /**
    * @async
@@ -29,8 +29,7 @@ const SignIn = (props) => {
       if (!userCredentials.password) {
         alert("Vérifiez votre email pour le lien de connexion");
       }
-      console.log("Authentification ok");
-      history.push("/home");
+      navigate("/home");
     } catch (error) {
       alert(error.error_description || error.message);
     }

@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import ActionButton from "./ActionButton";
 import { supabase } from "../supabaseClient";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 const SignUp = (props) => {
   const [userCredentials, setCredentials] = useState({
@@ -9,7 +9,7 @@ const SignUp = (props) => {
     password: "",
     username: "",
   });
-  const history = useHistory();
+  const navigate = useNavigate();
 
   /**
    * @async
@@ -28,9 +28,7 @@ const SignUp = (props) => {
       // Si ok => enregistre le nouvel utilisateur dans les profiles
       const register = await registerNewUser(user.id);
       if (register) {
-        // Si ok => tout va bien
-        console.log("Enregistrement ok");
-        history.push("/home");
+        navigate("/home");
       } else {
         // Si erreur => dire que c'est la sauce
         throw new Error("L'enregistrement a échoué");
