@@ -5,7 +5,21 @@ import {
   Popup,
   LayersControl,
   Circle,
+  Polygon,
 } from "react-leaflet";
+
+const arches = [
+  {
+    name: "Arche de Londres",
+    position: [51.49939, -0.124754],
+  },
+  {
+    name: "Arche de Bordeaux",
+    position: [44.84044, -0.5805],
+  },
+];
+const anatheme = [];
+const purpleOptions = { color: "purple" };
 
 const Map = () => {
   return (
@@ -22,14 +36,16 @@ const Map = () => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LayersControl.BaseLayer checked name="Arches">
-          <Marker position={[51.49939, -0.124754]}>
-            <Popup>QG du Knight</Popup>
-          </Marker>
-        </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Tâches d'Anathème">
+        <LayersControl.Overlay checked name="Arches">
+          {arches.map((arche, index) => (
+            <Marker position={arche.position} key={index}>
+              <Popup>{arche.name}</Popup>
+            </Marker>
+          ))}
+        </LayersControl.Overlay>
+        <LayersControl.Overlay name="Tâches d'Anathème">
           <Circle center={[48.8534, 2.3488]} radius={20000} />
-        </LayersControl.BaseLayer>
+        </LayersControl.Overlay>
       </LayersControl>
     </MapContainer>
   );
