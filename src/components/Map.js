@@ -19,7 +19,28 @@ const arches = [
     position: [44.84044, -0.5805],
   },
 ];
-const anatheme = [];
+const anatheme = [
+  [
+    // Hyères
+    [43.121, 6.128],
+    // Dunkerke
+    [51.034368, 2.376776],
+    // Groningen
+    [53.21917, 6.56667],
+    // Rostock
+    [54.0887, 12.14049],
+    // Vilnius
+    [54.6871555, 25.2796514],
+    //Kiev
+    [50.4501, 30.5234],
+    // Constanta
+    [44.18073, 28.63432],
+    // Larissa
+    [39.643452, 22.413208],
+    // Rome
+    [41.89193, 12.51133],
+  ],
+];
 const purpleOptions = { color: "purple" };
 
 const Map = () => {
@@ -47,7 +68,11 @@ const Map = () => {
           </LayerGroup>
         </LayersControl.Overlay>
         <LayersControl.Overlay name="Tâches d'Anathème">
-          <Circle center={[48.8534, 2.3488]} radius={20000} />
+          <LayerGroup>
+            {anatheme.map((zone, index) => (
+              <Polygon positions={zone} pathOptions={purpleOptions} />
+            ))}
+          </LayerGroup>
         </LayersControl.Overlay>
       </LayersControl>
     </MapContainer>
