@@ -6,6 +6,7 @@ import {
   LayersControl,
   Circle,
   Polygon,
+  LayerGroup,
 } from "react-leaflet";
 
 const arches = [
@@ -24,7 +25,7 @@ const purpleOptions = { color: "purple" };
 const Map = () => {
   return (
     <MapContainer
-      center={[51.505, -0.09]}
+      center={[51.49939, -0.124754]}
       zoom={4}
       maxZoom={8}
       minZoom={3}
@@ -37,11 +38,13 @@ const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <LayersControl.Overlay checked name="Arches">
-          {arches.map((arche, index) => (
-            <Marker position={arche.position} key={index}>
-              <Popup>{arche.name}</Popup>
-            </Marker>
-          ))}
+          <LayerGroup>
+            {arches.map((arche, index) => (
+              <Marker position={arche.position} key={index}>
+                <Popup>{arche.name}</Popup>
+              </Marker>
+            ))}
+          </LayerGroup>
         </LayersControl.Overlay>
         <LayersControl.Overlay name="Tâches d'Anathème">
           <Circle center={[48.8534, 2.3488]} radius={20000} />
