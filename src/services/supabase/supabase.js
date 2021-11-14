@@ -158,6 +158,38 @@ export async function getFreeMissions() {
 
 /**
  * @async
+ * @description Retourne toutes les missions
+ * @returns {Promise<Mission[]>} La promesse d'un tableau de missions
+ */
+export async function getMissions() {
+  try {
+    const { data, error } = await supabase.from("mission").select();
+    if (error) throw error;
+    const missions = [];
+    data.forEach((mission) => {
+      missions.push(
+        new Mission(
+          mission.id,
+          mission.faction_id,
+          mission.coterie_id,
+          mission.title,
+          mission.description,
+          mission.status,
+          mission.latitude,
+          mission.longitude,
+          mission.difficulte,
+          mission.reward
+        )
+      );
+    });
+    return missions;
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
+/**
+ * @async
  * @description Donne 10px de plus à une coterie. Si elle atteint 100 px : lui donne un niveau de plus
  * @param {number} coterieID ID de la coterie à entrainer
  * @param {number} coterieXP XP de la coterie qui est entrainée
