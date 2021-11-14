@@ -5,11 +5,11 @@ import {
   Marker,
   Popup,
   LayersControl,
-  Circle,
   Polygon,
   LayerGroup,
 } from "react-leaflet";
 import { getMissions } from "../services/supabase/supabase";
+import { redIcon, greenIcon } from "../services/leaflet/icons";
 
 const arches = [
   {
@@ -110,8 +110,15 @@ const Map = () => {
           <LayerGroup>
             {missions &&
               missions.map((mission, index) => (
-                <Marker position={mission.localisation} key={index}>
-                  <Popup>{mission.title}</Popup>
+                <Marker
+                  position={mission.localisation}
+                  key={index}
+                  icon={mission.coterie_id ? greenIcon : redIcon}
+                >
+                  <Popup>
+                    <h3>{mission.title}</h3>
+                    <p>{mission.description}</p>
+                  </Popup>
                 </Marker>
               ))}
           </LayerGroup>
