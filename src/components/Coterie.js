@@ -3,8 +3,8 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ActionButton from "./ActionButton";
 import {
-  getSeneschal,
-  getMissions,
+  getSeneschalByID,
+  getMissionsByCoterie,
   trainCoterie,
   restCoterie,
 } from "../services/supabase/supabase";
@@ -16,10 +16,10 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
   const [missions, setMissions] = useState([]);
 
   useEffect(() => {
-    getSeneschal(coterie.seneschal_id).then((res) => {
+    getSeneschalByID(coterie.seneschal_id).then((res) => {
       setSeneschal(res);
     });
-    getMissions(coterie.id).then((res) => {
+    getMissionsByCoterie(coterie.id).then((res) => {
       setMissions(res);
     });
   }, [coterie]);

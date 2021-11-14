@@ -1,5 +1,5 @@
 import { useEffect, useState, Fragment } from "react";
-import { getSection } from "../services/supabase/supabase";
+import { getSectionByUser } from "../services/supabase/supabase";
 import { Section as SectionClass } from "../services/supabase/classes";
 import CoteriesSlider from "./CoteriesSlider";
 import MissionsSlider from "./MissionsSlider";
@@ -8,7 +8,7 @@ const Section = (props) => {
   const [section, setSection] = useState(new SectionClass());
 
   useEffect(() => {
-    getSection(props.userID).then((res) => setSection(res));
+    getSectionByUser(props.userID).then((res) => setSection(res));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

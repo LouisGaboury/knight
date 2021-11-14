@@ -7,7 +7,7 @@ import { Section, Coterie, Seneschal, Mission } from "./classes";
  * @param {string} userID ID du joueur
  * @returns {Promise<Section>} Une Section du Knight
  */
-export async function getSection(userID) {
+export async function getSectionByUser(userID) {
   try {
     // cherche la section du joueur dans la BDD selon son ID
     const { data, error } = await supabase
@@ -33,7 +33,7 @@ export async function getSection(userID) {
  * @param {number} sectionID ID de la section dans les tables Supabase
  * @returns {Promise<Coterie[]>} Un tableau de coteries
  */
-export async function getCoteries(sectionID) {
+export async function getCoteriesBySection(sectionID) {
   try {
     const { data, error } = await supabase
       .from("coterie")
@@ -66,7 +66,7 @@ export async function getCoteries(sectionID) {
  * @param {number} seneschalID
  * @returns {Promise<Seneschal>}
  */
-export async function getSeneschal(seneschalID) {
+export async function getSeneschalByID(seneschalID) {
   try {
     const { data, error } = await supabase
       .from("seneschal")
@@ -91,7 +91,7 @@ export async function getSeneschal(seneschalID) {
  * @param {number} coterieID ID de la coterie dans les tables Supabase
  * @returns {Promise<Mission[]>} Un tableau de missions
  */
-export async function getMissions(coterieID) {
+export async function getMissionsByCoterie(coterieID) {
   try {
     const { data, error } = await supabase
       .from("mission")
