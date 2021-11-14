@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -8,6 +9,7 @@ import {
   Polygon,
   LayerGroup,
 } from "react-leaflet";
+import { getMissions } from "../services/supabase/supabase";
 
 const arches = [
   {
@@ -58,10 +60,18 @@ const anatheme = [
     // El Menia
     [30.583316, 2.88367],
   ],
+  // La Chair
+  [],
 ];
 const purpleOptions = { color: "purple" };
 
 const Map = () => {
+  const [missions, setMissions] = useState(null);
+
+  useEffect(() => {
+    getMissions().then((res) => setMissions(res));
+  }, []);
+
   return (
     <MapContainer
       center={[51.49939, -0.124754]}
@@ -88,8 +98,22 @@ const Map = () => {
         <LayersControl.Overlay name="Tâches d'Anathème">
           <LayerGroup>
             {anatheme.map((zone, index) => (
-              <Polygon positions={zone} pathOptions={purpleOptions} />
+              <Polygon
+                positions={zone}
+                pathOptions={purpleOptions}
+                key={index}
+              />
             ))}
+          </LayerGroup>
+        </LayersControl.Overlay>
+        <LayersControl.Overlay name="Missions">
+          <LayerGroup>
+            {missions &&
+              missions.map((mission, index) => (
+                <Marker position={mission.localisation} key={index}>
+                  <Popup>{mission.title}</Popup>
+                </Marker>
+              ))}
           </LayerGroup>
         </LayersControl.Overlay>
       </LayersControl>
