@@ -108,8 +108,10 @@ export async function getMissions(coterieID) {
           mission.title,
           mission.description,
           mission.status,
-          mission.localisation,
-          mission.difficulte
+          mission.latitude,
+          mission.longitude,
+          mission.difficulte,
+          mission.reward
         )
       );
     });
@@ -141,8 +143,10 @@ export async function getFreeMissions() {
           mission.title,
           mission.description,
           mission.status,
-          mission.localisation,
-          mission.difficulte
+          mission.latitude,
+          mission.longitude,
+          mission.difficulte,
+          mission.reward
         )
       );
     });

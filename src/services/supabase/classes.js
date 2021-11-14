@@ -142,8 +142,10 @@ export class Mission {
    * @param {string} title
    * @param {string} description
    * @param {string} status
-   * @param {Object} localisation
+   * @param {number} latitude
+   * @param {number} longitude
    * @param {number} difficulte
+   * @param {number} reward
    */
   constructor(
     id,
@@ -152,8 +154,10 @@ export class Mission {
     title,
     description,
     status,
-    localisation,
-    difficulte
+    latitude,
+    longitude,
+    difficulte,
+    reward
   ) {
     /**
      * @type {number}
@@ -186,14 +190,19 @@ export class Mission {
      */
     this.status = status;
     /**
-     * @type {Object}
+     * @type {Array<number>}
      * @public
      */
-    this.localisation = localisation;
+    this.localisation = [latitude, longitude];
     /**
      * @type {number}
      * @public
      */
     this.difficulte = difficulte;
+    /**
+     * @type {number}
+     * @public
+     */
+    this.reward = reward;
   }
 }
