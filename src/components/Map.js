@@ -66,7 +66,7 @@ const anatheme = [
 ];
 const purpleOptions = { color: "purple" };
 
-const Map = ({ trigger, setTrigger }) => {
+const Map = ({ setMission, setTrigger }) => {
   const [missions, setMissions] = useState(null);
 
   useEffect(() => {
@@ -124,6 +124,7 @@ const Map = ({ trigger, setTrigger }) => {
                         textButton={"Details"}
                         onClick={() => {
                           setTrigger(true);
+                          setMission(mission);
                         }}
                       />
                     </div>
