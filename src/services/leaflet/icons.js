@@ -1,5 +1,9 @@
 import * as L from "leaflet";
 
+// Informations trouvées sur ce lien : https://github.com/pointhi/leaflet-color-markers
+// Qu'est ce que sont les données autres que iconURL ? Je ne sais pas
+// Mais ça marche comme ça ¯\_(ツ)_/¯
+
 export const greenIcon = new L.Icon({
   iconUrl:
     "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
