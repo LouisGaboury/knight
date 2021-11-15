@@ -1,7 +1,21 @@
+import { Fragment, useState } from "react";
 import Map from "../components/Map";
+import FocusMission from "../components/FocusMission";
 
 const GlobalMap = () => {
-  return <Map />;
+  const [trigger, setTrigger] = useState(true);
+  const [mission, setMission] = useState(null);
+
+  return (
+    <Fragment>
+      <Map trigger={trigger} setTrigger={setTrigger} />
+      <FocusMission
+        trigger={trigger}
+        setTrigger={setTrigger}
+        mission={mission}
+      />
+    </Fragment>
+  );
 };
 
 export default GlobalMap;

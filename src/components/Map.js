@@ -10,6 +10,7 @@ import {
 } from "react-leaflet";
 import { getMissions } from "../services/supabase/supabase";
 import { redIcon, greenIcon } from "../services/leaflet/icons";
+import ActionButton from "./ActionButton";
 
 const arches = [
   {
@@ -65,7 +66,7 @@ const anatheme = [
 ];
 const purpleOptions = { color: "purple" };
 
-const Map = () => {
+const Map = ({ trigger, setTrigger }) => {
   const [missions, setMissions] = useState(null);
 
   useEffect(() => {
@@ -79,14 +80,14 @@ const Map = () => {
       maxZoom={8}
       minZoom={3}
       scrollWheelZoom={true}
-      className={"h-full w-full"}
+      className={"h-full w-full z-0"}
     >
       <LayersControl position="topright">
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LayersControl.Overlay checked name="Arches">
+        <LayersControl.Overlay name="Arches">
           <LayerGroup>
             {arches.map((arche, index) => (
               <Marker position={arche.position} key={index}>
@@ -106,7 +107,7 @@ const Map = () => {
             ))}
           </LayerGroup>
         </LayersControl.Overlay>
-        <LayersControl.Overlay name="Missions">
+        <LayersControl.Overlay checked name="Missions">
           <LayerGroup>
             {missions &&
               missions.map((mission, index) => (
@@ -118,6 +119,14 @@ const Map = () => {
                   <Popup>
                     <h3>{mission.title}</h3>
                     <p>{mission.description}</p>
+                    <div className={"mx-auto"}>
+                      <ActionButton
+                        textButton={"Details"}
+                        onClick={() => {
+                          setTrigger(true);
+                        }}
+                      />
+                    </div>
                   </Popup>
                 </Marker>
               ))}
