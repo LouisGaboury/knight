@@ -118,7 +118,14 @@ const Map = ({ setMission, setTrigger }) => {
                 >
                   <Popup>
                     <h3>{mission.title}</h3>
-                    <p>{mission.description}</p>
+                    <div className={"flex justify-around mb-8"}>
+                      <p>
+                        Difficulté : <span>{mission?.difficulty}</span>
+                      </p>
+                      <p>
+                        Récompense : <span>{mission?.reward}</span>
+                      </p>
+                    </div>
                     <div className={"mx-auto"}>
                       <ActionButton
                         textButton={"Details"}
