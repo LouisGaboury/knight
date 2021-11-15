@@ -144,7 +144,7 @@ export class Mission {
    * @param {string} status
    * @param {number} latitude
    * @param {number} longitude
-   * @param {number} difficulte
+   * @param {number} difficulty
    * @param {number} reward
    */
   constructor(
@@ -156,7 +156,7 @@ export class Mission {
     status,
     latitude,
     longitude,
-    difficulte,
+    difficulty,
     reward
   ) {
     /**
@@ -198,7 +198,7 @@ export class Mission {
      * @type {number}
      * @public
      */
-    this.difficulte = difficulte;
+    this.difficulty = difficulty;
     /**
      * @type {number}
      * @public

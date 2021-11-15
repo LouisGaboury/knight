@@ -110,7 +110,7 @@ export async function getMissionsByCoterie(coterieID) {
           mission.status,
           mission.latitude,
           mission.longitude,
-          mission.difficulte,
+          mission.difficulty,
           mission.reward
         )
       );
@@ -145,7 +145,7 @@ export async function getFreeMissions() {
           mission.status,
           mission.latitude,
           mission.longitude,
-          mission.difficulte,
+          mission.difficulty,
           mission.reward
         )
       );
@@ -177,7 +177,7 @@ export async function getMissions() {
           mission.status,
           mission.latitude,
           mission.longitude,
-          mission.difficulte,
+          mission.difficulty,
           mission.reward
         )
       );
