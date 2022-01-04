@@ -87,18 +87,26 @@ const Map = ({ setMission, setTrigger }) => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
+        {/* Groupe des Arches  */}
         <LayersControl.Overlay name="Arches">
           <LayerGroup>
+            {/* Charge les différents élements à la création de la map  */}
             {arches.map((arche, index) => (
+              // Afiche un Marker pour chaque élément
               <Marker position={arche.position} key={index}>
                 <Popup>{arche.name}</Popup>
               </Marker>
             ))}
           </LayerGroup>
         </LayersControl.Overlay>
+
+        {/* Groupe des tâches d'Anathème  */}
         <LayersControl.Overlay name="Tâches d'Anathème">
           <LayerGroup>
+            {/* Charge les différents élements à la création de la map  */}
             {anatheme.map((zone, index) => (
+              // Afiche un Polygon pour chaque élément
               <Polygon
                 positions={zone}
                 pathOptions={purpleOptions}
@@ -107,10 +115,16 @@ const Map = ({ setMission, setTrigger }) => {
             ))}
           </LayerGroup>
         </LayersControl.Overlay>
+
+        {/* Groupe des missions  */}
         <LayersControl.Overlay checked name="Missions">
           <LayerGroup>
+            {/* Vérifie s'il y a des missions à charger, 
+            empêche un bug d'affichage lié à l'asynchrone de UseEffect et setState  */}
             {missions &&
+              // Charge les différents éléments à la création de la map
               missions.map((mission, index) => (
+                // Afiche un Marker pour chaque élément
                 <Marker
                   position={mission.localisation}
                   key={index}
