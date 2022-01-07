@@ -9,6 +9,8 @@ import {
   LayerGroup,
 } from "react-leaflet";
 import { getMissions } from "../services/supabase/supabase";
+// eslint-disable-next-line no-unused-vars
+import { Mission } from "../services/supabase/classes";
 import { redIcon, greenIcon } from "../services/leaflet/icons";
 import ActionButton from "./ActionButton";
 
@@ -123,35 +125,42 @@ const Map = ({ setMission, setTrigger }) => {
             empêche un bug d'affichage lié à l'asynchrone de UseEffect et setState  */}
             {missions &&
               // Charge les différents éléments à la création de la map
-              missions.map((mission, index) => (
-                // Afiche un Marker pour chaque élément
-                <Marker
-                  position={mission.localisation}
-                  key={index}
-                  icon={mission.coterie_id ? greenIcon : redIcon}
-                >
-                  <Popup>
-                    <h3>{mission.title}</h3>
-                    <div className={"flex justify-around mb-8"}>
-                      <p>
-                        Difficulté : <span>{mission?.difficulty}</span>
-                      </p>
-                      <p>
-                        Récompense : <span>{mission?.reward}</span>
-                      </p>
-                    </div>
-                    <div className={"mx-auto"}>
-                      <ActionButton
-                        textButton={"Details"}
-                        onClick={() => {
-                          setTrigger(true);
-                          setMission(mission);
-                        }}
-                      />
-                    </div>
-                  </Popup>
-                </Marker>
-              ))}
+              missions.map(
+                /**
+                 * @param {Mission} mission
+                 * @param {number} index la position de la mission dans le tableau
+                 * @returns
+                 */
+                (mission, index) => (
+                  // Afiche un Marker pour chaque élément
+                  <Marker
+                    position={mission.localisation}
+                    key={index}
+                    icon={mission.coterie_id ? redIcon : greenIcon}
+                  >
+                    <Popup>
+                      <h3>{mission.title}</h3>
+                      <div className={"flex justify-around mb-8"}>
+                        <p>
+                          Difficulté : <span>{mission?.difficulty}</span>
+                        </p>
+                        <p>
+                          Récompense : <span>{mission?.reward}</span>
+                        </p>
+                      </div>
+                      <div className={"mx-auto"}>
+                        <ActionButton
+                          textButton={"Details"}
+                          onClick={() => {
+                            setTrigger(true);
+                            setMission(mission);
+                          }}
+                        />
+                      </div>
+                    </Popup>
+                  </Marker>
+                )
+              )}
           </LayerGroup>
         </LayersControl.Overlay>
       </LayersControl>
