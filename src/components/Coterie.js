@@ -14,6 +14,7 @@ import { Mission } from "../services/supabase/classes";
 const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
   const [seneschal, setSeneschal] = useState("");
   const [missions, setMissions] = useState([]);
+  const [missionActuelle, setMissionActuelle] = useState("");
 
   useEffect(() => {
     getSeneschalByID(coterie.seneschal_id).then((res) => {
@@ -22,6 +23,7 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
     getMissionsByCoterie(coterie.id).then((res) => {
       setMissions(res);
     });
+    setMissionActuelle(findLastMission());
   }, [coterie]);
 
   /**
@@ -29,7 +31,7 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
    * @param {Mission[]} missions
    * @returns {string} Titre de la mission en cours
    */
-  const findLastMission = (missions) => {
+  const findLastMission = () => {
     let lastMission = 0;
     let index = 0;
     missions.forEach((mission) => {
@@ -38,7 +40,7 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
         index = missions.indexOf(mission);
       }
     });
-    return missions[index].title;
+    return missions[index];
   };
 
   const handleTraining = async () => {
@@ -134,21 +136,29 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
           <ul>
             <li>Sénéchal : {seneschal.name}</li>
             <li>Rang : {coterie.rank}</li>
-            <li>
-              Mission actuelle :
-              {missions.length > 0 ? findLastMission(missions) : " Aucune"}
-            </li>
+            <li>Mission actuelle : {missionActuelle?.title}</li>
             <li>Missions totales : {missions && missions.length}</li>
           </ul>
         </div>
         {/* boutons d'action */}
         <div className="flex flex-col justify-around w-1/2">
           <div className="flex justify-around mb-4">
-            <ActionButton textButton={"Se reposer"} onClick={handleRest} />
-            <ActionButton textButton={"Entrainer"} onClick={handleTraining} />
+            <ActionButton
+              textButton={"Se reposer"}
+              onClick={handleRest}
+              disabled={missionActuelle ? true : false}
+            />
+            <ActionButton
+              textButton={"Entrainer"}
+              onClick={handleTraining}
+              disabled={missionActuelle ? true : false}
+            />
           </div>
           <div className="flex justify-around">
-            <ActionButton textButton={"Rappeler"} />
+            <ActionButton
+              textButton={"Rappeler"}
+              disabled={missionActuelle ? false : true}
+            />
             <ActionButton textButton={"Dissoudre"} />
           </div>
         </div>
