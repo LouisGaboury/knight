@@ -7,6 +7,7 @@ import {
   getMissionsByCoterie,
   trainCoterie,
   restCoterie,
+  cancelMission,
 } from "../services/supabase/supabase";
 // eslint-disable-next-line no-unused-vars
 import { Mission } from "../services/supabase/classes";
@@ -24,10 +25,11 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
       setMissions(res);
     });
     setMissionActuelle(findLastMission());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coterie]);
 
   /**
-   * @description
+   * @description Trouve la dernière des missions effectuée par le groupe
    * @param {Mission[]} missions
    * @returns {string} Titre de la mission en cours
    */
@@ -43,6 +45,9 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
     return missions[index];
   };
 
+  /**
+   * @description Ajoute l'expérience voulue à la coterie chargée en props du composant
+   */
   const handleTraining = async () => {
     // Impossible d'aller au delà du niveau élite
     if (coterie.rank !== "élite") {
@@ -51,9 +56,17 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
     }
   };
 
+  /**
+   * @description Régénère la coterie d'une certaine quantité de pdv
+   */
   const handleRest = async () => {
     const result = await restCoterie(coterie.id, coterie.health);
     updateCoterie(result);
+  };
+
+  const handleCancelMission = async () => {
+    await cancelMission(missionActuelle.id);
+    setMissionActuelle(null);
   };
 
   return (
@@ -137,7 +150,7 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
             <li>Sénéchal : {seneschal.name}</li>
             <li>Rang : {coterie.rank}</li>
             <li>Mission actuelle : {missionActuelle?.title}</li>
-            <li>Missions totales : {missions && missions.length}</li>
+            <li>Missions totales : {missions?.length}</li>
           </ul>
         </div>
         {/* boutons d'action */}
@@ -157,6 +170,7 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
           <div className="flex justify-around">
             <ActionButton
               textButton={"Rappeler"}
+              onClick={handleCancelMission}
               disabled={missionActuelle ? false : true}
             />
             <ActionButton textButton={"Dissoudre"} />
