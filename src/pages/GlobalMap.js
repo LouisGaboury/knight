@@ -13,6 +13,7 @@ const GlobalMap = () => {
         trigger={trigger}
         setTrigger={setTrigger}
         mission={mission}
+        setMission={setMission}
       />
     </Fragment>
   );

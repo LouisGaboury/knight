@@ -190,6 +190,23 @@ export async function getMissions() {
 
 /**
  * @async
+ * @description Retire une coterie engagée sur une mission
+ * @param {number} missionID L'ID de la mission à annulée
+ */
+export async function cancelMission(missionID) {
+  try {
+    const { error } = await supabase
+      .from("mission")
+      .update({ coterie_id: null, status: "Libre" })
+      .match({ id: missionID });
+    if (error) throw error;
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
+/**
+ * @async
  * @description Donne 10px de plus à une coterie. Si elle atteint 100 px : lui donne un niveau de plus
  * @param {number} coterieID ID de la coterie à entrainer
  * @param {number} coterieXP XP de la coterie qui est entrainée
