@@ -136,7 +136,7 @@ const Map = ({ setMission, setTrigger }) => {
                   <Marker
                     position={mission.localisation}
                     key={index}
-                    icon={mission.coterie_id ? redIcon : greenIcon}
+                    icon={mission.coterie_id ? greenIcon : redIcon}
                   >
                     <Popup>
                       <h3>{mission.title}</h3>
