@@ -62,9 +62,9 @@ export async function getCoteriesBySection(sectionID) {
 
 /**
  * @async
- * @description
- * @param {number} seneschalID
- * @returns {Promise<Seneschal>}
+ * @description Permet de trouver un sénéchal par l'ID de sa section
+ * @param {number} seneschalID L'ID du sénéchal recherché
+ * @returns {Promise<Seneschal>} L'objet Seneschal entier
  */
 export async function getSeneschalByID(seneschalID) {
   try {
