@@ -54,26 +54,31 @@ function FocusMission({ trigger, setTrigger, mission, setMission }) {
             Récompense : <span>{mission?.reward}</span>
           </p>
         </div>
-        {/* Choix d'une coterie à envoyer */}
-        <label htmlFor="coterie-select" className="mx-6">
-          Sélectionnez une coterie :
-        </label>
-        <select name="coterie" id="coterie-select" className="mx-6">
-          {coteries?.map(
-            /**
-             * @param {Coterie} coterie La coterie itérée
-             * @param {number} index Place de la coterie dans le tableau généré
-             */
-            (coterie, index) => {
-              return (
-                <option value={coterie.id} key={index}>
-                  Coterie {coterie.rank} n°{coterie.id} - Sénéchal{" "}
-                  {" " + coterie.seneschal.name}
-                </option>
-              );
-            }
-          )}
-        </select>
+        {/* Choix d'une coterie à envoyer. Ne s'affiche que si mission libre */}
+        {!mission?.coterie_id && (
+          <Fragment>
+            <label htmlFor="coterie-select" className="mx-6">
+              Sélectionnez une coterie :
+            </label>
+            <select name="coterie" id="coterie-select" className="mx-6">
+              {coteries?.map(
+                /**
+                 * @param {Coterie} coterie La coterie itérée
+                 * @param {number} index Place de la coterie dans le tableau généré
+                 */
+                (coterie, index) => {
+                  return (
+                    <option value={coterie.id} key={index}>
+                      Coterie {coterie.rank} n°{coterie.id} - Sénéchal{" "}
+                      {" " + coterie.seneschal.name}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+          </Fragment>
+        )}
+
         {/* Ligne des boutons d'actions */}
         <div className="flex justify-around mt-8">
           <ActionButton
