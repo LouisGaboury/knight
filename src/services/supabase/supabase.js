@@ -70,9 +70,10 @@ export async function getFreeCoteriesBySection(sectionID) {
   try {
     const { data: coteries, error } = await supabase
       .from(`free_coteries`)
-      .select("*")
+      .select("*, seneschal(id, name)")
       .eq("section_id", sectionID);
     if (error) throw error;
+    console.log(coteries);
     return coteries;
   } catch (error) {
     alert(error.error_description || error.message);
