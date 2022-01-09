@@ -37,7 +37,10 @@ export class Section {
 }
 
 /**
- *
+ * Une coterie de Chevaliers
+ * @class
+ * @constructor
+ * @public
  */
 export class Coterie {
   /**
@@ -133,6 +136,12 @@ export class Seneschal {
   }
 }
 
+/**
+ * Tâche à effectuer par une coterie pour l'une des factions du monde
+ * @class
+ * @constructor
+ * @public
+ */
 export class Mission {
   /**
    * @constructor
