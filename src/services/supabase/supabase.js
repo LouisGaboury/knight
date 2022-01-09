@@ -3,6 +3,27 @@ import { Section, Coterie, Seneschal, Mission } from "./classes";
 
 /**
  * @async
+ * @description Permet de retrouver un Lord en fonction de l'utilisateur
+ * @param {string} userID ID de l'utilisateur
+ * @returns Un objet Lord
+ */
+export async function findLordByUser(userID) {
+  try {
+    // Trouve le bon lord dans la BDD
+    const { data: lord, error } = await supabase
+      .from("lord")
+      .select("*")
+      .eq("joueur_id", userID);
+    // Fixe le nom du lord dans le state pour affichage
+    if (error) throw error;
+    return lord[0];
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
+/**
+ * @async
  * @description Retourne le nom et l'ID d'une section à partir de l'ID d'un joueur
  * @param {string} userID ID du joueur
  * @returns {Promise<Section>} Une Section du Knight

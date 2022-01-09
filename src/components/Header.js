@@ -1,33 +1,21 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
+import { findLordByUser } from "../services/supabase/supabase";
 
-const Header = (props) => {
-  const [name, setName] = useState("");
+const Header = () => {
+  const [lord, setLord] = useState("");
 
   useEffect(() => {
-    async function findLord() {
-      try {
-        // Trouve le bon lord dans la BDD
-        const { data, error } = await supabase
-          .from("lord")
-          .select("name")
-          .eq("joueur_id", props.userID);
-        // Fixe le nom du lord dans le state pour affichage
-        setName(data[0].name);
-        if (error) throw error;
-      } catch (error) {
-        alert(error.error_description || error.message);
-      }
-    }
-    // Déclenche la fonction ci-dessus
-    findLord();
+    findLordByUser(supabase.auth.user().id).then((res) => {
+      setLord(res);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <header className={"bg-blue-800 h-20 flex items-center justify-between"}>
       <h2 className={"text-3xl font-semibold ml-8 text-white"}>
-        Bienvenue, seigneur {name}
+        Bienvenue, seigneur {lord?.name}
       </h2>
       <svg
         xmlns="http://www.w3.org/2000/svg"
