@@ -1,25 +1,13 @@
-import { Fragment, useState, useEffect } from "react";
-import { supabase } from "../supabaseClient";
+import { Fragment } from "react";
 
 import Header from "../components/Header";
 import Section from "../components/Section";
 
 const Home = () => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    setUser(supabase.auth.user());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <Fragment>
-      {user && (
-        <Fragment>
-          <Header />
-          <Section userID={user.id} />
-        </Fragment>
-      )}
+      <Header />
+      <Section />
     </Fragment>
   );
 };
