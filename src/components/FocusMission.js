@@ -1,8 +1,14 @@
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 import ActionButton from "./ActionButton";
 // eslint-disable-next-line no-unused-vars
-import { Mission } from "../services/supabase/classes";
-import { cancelMission } from "../services/supabase/supabase";
+import { supabase } from "../supabaseClient";
+import { Mission, Coterie } from "../services/supabase/classes";
+import {
+  cancelMission,
+  getSectionByUser,
+  getSeneschalByID,
+  getFreeCoteriesBySection,
+} from "../services/supabase/supabase";
 
 /**
  * @param {Object} Props
@@ -13,6 +19,18 @@ import { cancelMission } from "../services/supabase/supabase";
  * @returns L'interface qui s'affiche quand on clique sur une mission depuis la map
  */
 function FocusMission({ trigger, setTrigger, mission, setMission }) {
+  const [coteries, setCoteries] = useState([]);
+
+  useEffect(() => {
+    if (mission?.coterie_id) return;
+    getSectionByUser(supabase.auth.user().id).then((res) => {
+      getFreeCoteriesBySection(res.id).then((res) => {
+        setCoteries(res);
+      });
+      getFreeCoteriesBySection(res.id);
+    });
+  }, [mission]);
+
   const handleCancelMission = async () => {
     // On modifie la mission dans la BDD
     await cancelMission(mission.id);
@@ -28,7 +46,7 @@ function FocusMission({ trigger, setTrigger, mission, setMission }) {
     <section className="fixed z-10 top-0 left-0 h-screen w-full bg-black bg-opacity-25 flex justify-center items-center">
       <div className="bg-white shadow-md rounded w-1/2 h-2/3 flex flex-col">
         <h2 className="text-4xl pt-4 mb-8 text-center">{mission?.title}</h2>
-        <p className={"mx-6 mb-8 text-justify"}>{mission?.description}</p>
+        <p className="mx-6 mb-8 text-justify">{mission?.description}</p>
         <div className={"flex justify-around mb-8"}>
           <p>
             Difficulté : <span>{mission?.difficulty}</span>
@@ -37,9 +55,28 @@ function FocusMission({ trigger, setTrigger, mission, setMission }) {
             Récompense : <span>{mission?.reward}</span>
           </p>
         </div>
-        <div className="flex justify-around">
+        <label htmlFor="coterie-select" className="mx-6">
+          Sélectionnez une coterie :
+        </label>
+        <select name="coterie" id="coterie-select" className="mx-6">
+          {coteries?.map(
+            /**
+             * @param {Coterie} coterie La coterie itérée
+             * @param {number} index Place de la coterie dans le tableau généré
+             */
+            (coterie, index) => {
+              return (
+                <option value={coterie.id} key={index}>
+                  Coterie {coterie.rank} n°{coterie.id} - Sénéchal
+                </option>
+              );
+            }
+          )}
+        </select>
+        {/* Ligne des boutons d'actions */}
+        <div className="flex justify-around mt-8">
           <ActionButton
-            textButton={mission.coterie_id ? "Rappeler" : "Assigner"}
+            textButton={mission.coterie_id ? "Rappeler" : "Envoyer"}
             onClick={() =>
               mission.coterie_id
                 ? handleCancelMission()
