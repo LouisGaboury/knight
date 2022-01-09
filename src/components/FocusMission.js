@@ -2,11 +2,11 @@ import { Fragment, useState, useEffect } from "react";
 import ActionButton from "./ActionButton";
 // eslint-disable-next-line no-unused-vars
 import { supabase } from "../supabaseClient";
+// eslint-disable-next-line no-unused-vars
 import { Mission, Coterie } from "../services/supabase/classes";
 import {
   cancelMission,
   getSectionByUser,
-  getSeneschalByID,
   getFreeCoteriesBySection,
 } from "../services/supabase/supabase";
 
@@ -27,7 +27,6 @@ function FocusMission({ trigger, setTrigger, mission, setMission }) {
       getFreeCoteriesBySection(res.id).then((res) => {
         setCoteries(res);
       });
-      getFreeCoteriesBySection(res.id);
     });
   }, [mission]);
 
@@ -55,6 +54,7 @@ function FocusMission({ trigger, setTrigger, mission, setMission }) {
             Récompense : <span>{mission?.reward}</span>
           </p>
         </div>
+        {/* Choix d'une coterie à envoyer */}
         <label htmlFor="coterie-select" className="mx-6">
           Sélectionnez une coterie :
         </label>
@@ -67,7 +67,8 @@ function FocusMission({ trigger, setTrigger, mission, setMission }) {
             (coterie, index) => {
               return (
                 <option value={coterie.id} key={index}>
-                  Coterie {coterie.rank} n°{coterie.id} - Sénéchal
+                  Coterie {coterie.rank} n°{coterie.id} - Sénéchal{" "}
+                  {" " + coterie.seneschal.name}
                 </option>
               );
             }
