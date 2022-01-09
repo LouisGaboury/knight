@@ -62,6 +62,25 @@ export async function getCoteriesBySection(sectionID) {
 
 /**
  * @async
+ * @description Retourne les coteries d'une section qui ne sont pas encore sur une mission
+ * @param {number} sectionID ID de la section dans les tables Supabase
+ * @returns {Promise<Coterie[]>} Un tableau de coteries
+ */
+export async function getFreeCoteriesBySection(sectionID) {
+  try {
+    const { data: coteries, error } = await supabase
+      .from(`free_coteries`)
+      .select("*")
+      .eq("section_id", sectionID);
+    if (error) throw error;
+    return coteries;
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
+/**
+ * @async
  * @description Permet de trouver un sénéchal par l'ID de sa section
  * @param {number} seneschalID L'ID du sénéchal recherché
  * @returns {Promise<Seneschal>} L'objet Seneschal entier
