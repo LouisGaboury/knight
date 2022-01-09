@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <header className={"bg-blue-800 h-20 flex items-center justify-between"}>
       <h2 className={"text-3xl font-semibold ml-8 text-white"}>
-        Bienvenue, seigneur {lord?.name}
+        <Link to="/home">Bienvenue, seigneur {lord?.name}</Link>
       </h2>
       <nav className="flex justify-evenly text-lg text-white font-semibold w-1/3">
         <Link to="/map" className="flex">
