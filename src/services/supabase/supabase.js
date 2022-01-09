@@ -73,7 +73,6 @@ export async function getFreeCoteriesBySection(sectionID) {
       .select("*, seneschal(id, name)")
       .eq("section_id", sectionID);
     if (error) throw error;
-    console.log(coteries);
     return coteries;
   } catch (error) {
     alert(error.error_description || error.message);
