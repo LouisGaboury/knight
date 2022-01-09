@@ -16,7 +16,7 @@ const Home = () => {
     <Fragment>
       {user && (
         <Fragment>
-          <Header userID={user.id} />
+          <Header />
           <Section userID={user.id} />
         </Fragment>
       )}
