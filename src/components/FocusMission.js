@@ -6,6 +6,7 @@ import { supabase } from "../supabaseClient";
 import { Mission, Coterie } from "../services/supabase/classes";
 import {
   cancelMission,
+  assignMission,
   getSectionByUser,
   getFreeCoteriesBySection,
 } from "../services/supabase/supabase";
@@ -20,11 +21,13 @@ import {
  */
 function FocusMission({ trigger, setTrigger, mission, setMission }) {
   const [coteries, setCoteries] = useState([]);
+  const [selectedCoterieID, setSelectedCoterieID] = useState(null);
 
   useEffect(() => {
     if (mission?.coterie_id) return;
     getSectionByUser(supabase.auth.user().id).then((res) => {
       getFreeCoteriesBySection(res.id).then((res) => {
+        setSelectedCoterieID(res[0].id);
         setCoteries(res);
       });
     });
@@ -37,6 +40,16 @@ function FocusMission({ trigger, setTrigger, mission, setMission }) {
     let newMission = mission;
     newMission.status = "Libre";
     newMission.coterie_id = null;
+    // On update la mission pour le composant parent - GlobalMap
+    setMission(newMission);
+  };
+
+  const handleAssignMission = async () => {
+    await assignMission(mission.id, selectedCoterieID);
+    // Pour éviter un nouvel appel à la BDD, on change la mission en interne au front
+    let newMission = mission;
+    newMission.status = "En cours";
+    newMission.coterie_id = selectedCoterieID;
     // On update la mission pour le composant parent - GlobalMap
     setMission(newMission);
   };
@@ -60,7 +73,14 @@ function FocusMission({ trigger, setTrigger, mission, setMission }) {
             <label htmlFor="coterie-select" className="mx-6">
               Sélectionnez une coterie :
             </label>
-            <select name="coterie" id="coterie-select" className="mx-6">
+            <select
+              name="coterie"
+              id="coterie-select"
+              className="mx-6"
+              onChange={(event) => {
+                setSelectedCoterieID(event.target.value);
+              }}
+            >
               {coteries?.map(
                 /**
                  * @param {Coterie} coterie La coterie itérée
@@ -78,15 +98,12 @@ function FocusMission({ trigger, setTrigger, mission, setMission }) {
             </select>
           </Fragment>
         )}
-
         {/* Ligne des boutons d'actions */}
         <div className="flex justify-around mt-8">
           <ActionButton
             textButton={mission.coterie_id ? "Rappeler" : "Envoyer"}
             onClick={() =>
-              mission.coterie_id
-                ? handleCancelMission()
-                : console.log("implémenter le système de coteries sur missions")
+              mission.coterie_id ? handleCancelMission() : handleAssignMission()
             }
           />
           <ActionButton
