@@ -10,8 +10,15 @@ import {
   cancelMission,
 } from "../services/supabase/supabase";
 // eslint-disable-next-line no-unused-vars
-import { Mission } from "../services/supabase/classes";
+import { Mission, Coterie as classCoterie } from "../services/supabase/classes";
 
+/**
+ * @param {Object} Props
+ * @param {classCoterie} Props.coterie
+ * @param {function} Props.updateCoterie
+ * @param {function} Props.handleFocus
+ * @returns L'affichage détaillé d'une coterie
+ */
 const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
   const [seneschal, setSeneschal] = useState("");
   const [missions, setMissions] = useState([]);
