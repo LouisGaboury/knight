@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import {
   getFreeCoteriesBySection,
   getFreeMissions,
-  subscribeFreeMissions,
   assignMission,
 } from "../services/supabase/supabase";
 import Mission from "./Mission";
 import ActionButton from "./ActionButton";
+import { supabase } from "../supabaseClient";
 
 const MissionsSlider = ({ section }) => {
   const [missions, setMissions] = useState(null);
@@ -16,18 +16,30 @@ const MissionsSlider = ({ section }) => {
 
   useEffect(() => {
     getFreeMissions().then((res) => setMissions(res));
-    subscribeFreeMissions();
-    if (section.id) {
-      getFreeCoteriesBySection(section.id).then((res) => {
-        setCoteries(res);
-        setSelectedCoterieID(res[0].id);
-      });
-    }
+    getFreeCoteriesBySection(section.id).then((res) => {
+      setCoteries(res);
+      setSelectedCoterieID(res[0].id);
+    });
+    let listener = supabase
+      .from("mission")
+      .on("UPDATE", () => {
+        // Si les missions sont modifiées : recharger les missions
+        getFreeMissions().then((res) => setMissions(res));
+        getFreeCoteriesBySection(section.id).then((res) => {
+          setCoteries(res);
+          setSelectedCoterieID(res[0].id);
+        });
+      })
+      .subscribe();
+    // clean-up effect
+    return () => {
+      // Quand le composant est démonté : efface l'abonnement à la BDD
+      supabase.removeSubscription(listener);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [section]);
 
   const handleAssignMission = async () => {
-    console.log(missions[focus], selectedCoterieID);
     await assignMission(missions[focus].id, selectedCoterieID);
   };
 

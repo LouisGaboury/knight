@@ -12,8 +12,8 @@ import { Mission as ClassMission } from "../services/supabase/classes";
 const Mission = ({ mission, handleFocus }) => {
   return (
     <Fragment>
-      <h5 className="text-xl font-semibold mb-4">{mission.title}</h5>
-      <p className="mx-8 text-justify">{mission.description}</p>
+      <h5 className="text-xl font-semibold mb-4">{mission?.title}</h5>
+      <p className="mx-8 text-justify">{mission?.description}</p>
       {/* boutons de switch sur le côté */}
       <div className="flex justify-between">
         <button
