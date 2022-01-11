@@ -1,20 +1,35 @@
 import { useEffect, useState } from "react";
-import { getFreeMissions } from "../services/supabase/supabase";
+import {
+  getFreeCoteriesBySection,
+  getFreeMissions,
+  subscribeFreeMissions,
+  assignMission,
+} from "../services/supabase/supabase";
 import Mission from "./Mission";
+import ActionButton from "./ActionButton";
 
-const MissionsSlider = () => {
+const MissionsSlider = ({ section }) => {
   const [missions, setMissions] = useState(null);
   const [focus, setFocus] = useState(0);
+  const [coteries, setCoteries] = useState([]);
+  const [selectedCoterieID, setSelectedCoterieID] = useState(null);
 
   useEffect(() => {
     getFreeMissions().then((res) => setMissions(res));
-  }, []);
+    subscribeFreeMissions();
+    if (section.id) {
+      getFreeCoteriesBySection(section.id).then((res) => {
+        setCoteries(res);
+        setSelectedCoterieID(res[0].id);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [section]);
 
-  /* const updateCoterie = (newCoterie) => {
-    let newCoteries = [...coteries];
-    newCoteries[focus] = newCoterie;
-    setCoteries(newCoteries);
-  }; */
+  const handleAssignMission = async () => {
+    console.log(missions[focus], selectedCoterieID);
+    await assignMission(missions[focus].id, selectedCoterieID);
+  };
 
   // Allow to control witch coterie is shown
   const changeFocus = (event) => {
@@ -45,6 +60,38 @@ const MissionsSlider = () => {
       {missions && (
         <Mission mission={missions[focus]} handleFocus={changeFocus} />
       )}
+      {/* choix d'une coterie */}
+      <label htmlFor="coterie-select" className="mx-6">
+        Sélectionnez une coterie :
+      </label>
+      <select
+        name="coterie"
+        id="coterie-select"
+        className="mx-6"
+        onChange={(event) => {
+          setSelectedCoterieID(event.target.value);
+        }}
+      >
+        {coteries?.map(
+          /**
+           * @param {Coterie} coterie La coterie itérée
+           * @param {number} index Place de la coterie dans le tableau généré
+           */
+          (coterie, index) => {
+            return (
+              <option value={coterie.id} key={index}>
+                Coterie {coterie.rank} n°{coterie.id} - Sénéchal{" "}
+                {" " + coterie.seneschal.name}
+              </option>
+            );
+          }
+        )}
+      </select>
+      {/* boutons d'action */}
+      <ActionButton
+        textButton={"Envoyer"}
+        onClick={() => handleAssignMission()}
+      />
     </section>
   );
 };

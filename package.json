@@ -1,6 +1,6 @@
 {
   "name": "knight",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "author": "Louis Gaboury",
   "private": true,
   "dependencies": {

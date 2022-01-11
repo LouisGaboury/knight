@@ -1,10 +1,19 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
+// eslint-disable-next-line no-unused-vars
+import { Mission as ClassMission } from "../services/supabase/classes";
 
+/**
+ *
+ * @param {Object} props
+ * @param {ClassMission} props.mission
+ * @param {Function} props.handleFocus
+ * @returns L'affichage d'une mission sur la page principale
+ */
 const Mission = ({ mission, handleFocus }) => {
   return (
     <Fragment>
-      <h5>{mission.title}</h5>
-      <p>{mission.description}</p>
+      <h5 className="text-xl font-semibold mb-4">{mission.title}</h5>
+      <p className="mx-8 text-justify">{mission.description}</p>
       {/* boutons de switch sur le côté */}
       <div className="flex justify-between">
         <button

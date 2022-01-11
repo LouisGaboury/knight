@@ -26,7 +26,7 @@ const Section = () => {
       </div>
       <div className="w-4/5 shadow-md bg-gray-100 mx-auto mt-8">
         <h3 className="text-6xl pt-4 mb-8 text-center">Missions libres</h3>
-        <MissionsSlider />
+        <MissionsSlider section={section} />
       </div>
     </Fragment>
   );
