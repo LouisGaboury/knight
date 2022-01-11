@@ -197,22 +197,6 @@ export async function getFreeMissions() {
 }
 
 /**
- * @description Ouvre un lien websocket avec la BDD - mission
- */
-export function subscribeFreeMissions() {
-  try {
-    const missionListener = supabase
-      .from("mission")
-      .on("UPDATE", (payload) => {
-        console.log("Change received!", payload.new);
-      })
-      .subscribe();
-  } catch (error) {
-    alert(error.error_description || error.message);
-  }
-}
-
-/**
  * @async
  * @description Retourne toutes les missions
  * @returns {Promise<Mission[]>} La promesse d'un tableau de missions
