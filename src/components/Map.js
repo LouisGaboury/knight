@@ -8,6 +8,7 @@ import {
   Polygon,
   LayerGroup,
 } from "react-leaflet";
+import { supabase } from "../supabaseClient";
 import { getMissions } from "../services/supabase/supabase";
 // eslint-disable-next-line no-unused-vars
 import { Mission } from "../services/supabase/classes";
@@ -73,6 +74,19 @@ const Map = ({ setMission, setTrigger }) => {
 
   useEffect(() => {
     getMissions().then((res) => setMissions(res));
+    let listener = supabase
+      .from("mission")
+      .on("UPDATE", () => {
+        setMissions(null);
+        // Si les missions sont modifiées : recharger les missions
+        getMissions().then((res) => setMissions(res));
+      })
+      .subscribe();
+    // clean-up effect
+    return () => {
+      // Quand le composant est démonté : efface l'abonnement à la BDD
+      supabase.removeSubscription(listener);
+    };
   }, []);
 
   return (
