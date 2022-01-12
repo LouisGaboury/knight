@@ -256,10 +256,11 @@ export async function assignMission(missionID, coterieID) {
     const { error } = await supabase
       .from("mission")
       .update({ coterie_id: coterieID, status: "En cours" })
-      .match({ id: missionID });
+      .match({ id: missionID })
+      .is("coterie_id", null);
     if (error) throw error;
   } catch (error) {
-    alert(error.error_description || error.message);
+    alert("La mission a déjà été pourvue par quelqu'un d'autre");
   }
 }
 
