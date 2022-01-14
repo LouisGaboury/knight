@@ -7,7 +7,7 @@ const Header = () => {
   const [lord, setLord] = useState("");
 
   useEffect(() => {
-    findLordByUser(supabase.auth.user().id).then((res) => {
+    findLordByUser(supabase.auth.user()?.id).then((res) => {
       setLord(res);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
