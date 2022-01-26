@@ -19,7 +19,7 @@ import { Mission, Coterie as ClassCoterie } from "../services/supabase/classes";
  * @param {function} Props.handleFocus
  * @returns L'affichage détaillé d'une coterie
  */
-const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
+const Coterie = ({ coterie, handleBack, handleForth, updateCoterie }) => {
   const [seneschal, setSeneschal] = useState("");
   const [missions, setMissions] = useState([]);
   const [missionActuelle, setMissionActuelle] = useState("");
@@ -82,8 +82,7 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
       {/* boutons de switch sur le côté */}
       <div className="flex justify-between">
         <button
-          onClick={handleFocus}
-          id="back"
+          onClick={handleBack}
           className="p-4 max-w-xs max-h-16 bg-blue-400 rounded-xl shadow-md relative -left-8 hover:bg-blue-700 transform transition duration-300 ease-in-out focus:ring-4"
         >
           <svg
@@ -100,8 +99,7 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
           </svg>
         </button>
         <button
-          onClick={handleFocus}
-          id="forth"
+          onClick={handleForth}
           className="p-4 max-w-xs max-h-16 bg-blue-400 rounded-xl shadow-md relative -right-8 hover:bg-blue-700 transform transition duration-300 ease-in-out focus:ring-4"
         >
           <svg
@@ -180,7 +178,7 @@ const Coterie = ({ coterie, handleFocus, updateCoterie }) => {
               onClick={handleCancelMission}
               disabled={missionActuelle ? false : true}
             />
-            <ActionButton textButton={"Dissoudre"} />
+            <ActionButton textButton={"WIP"} />
           </div>
         </div>
       </div>
