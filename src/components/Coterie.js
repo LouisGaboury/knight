@@ -156,11 +156,11 @@ const Coterie = ({ coterie, handleBack, handleForth, updateCoterie }) => {
       <div className="flex mx-6">
         {/* historique */}
         <div className="w-1/2">
-          <ul>
+          <ul className="flex flex-col h-full justify-evenly">
             <li>Sénéchal : {seneschal.name}</li>
             <li>Rang : {coterie.rank}</li>
             <li>Mission actuelle : {missionActuelle?.title}</li>
-            <li>Missions totales : {missions?.length}</li>
+            <li>Missions réalisées : {missions?.length - 1}</li>
           </ul>
         </div>
         {/* boutons d'action */}
