@@ -37,6 +37,7 @@ const Coterie = ({ coterie, handleBack, handleForth, updateCoterie }) => {
 
   useEffect(() => {
     setMissionActuelle(findLastMission());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [missions]);
 
   /**
@@ -176,7 +177,7 @@ const Coterie = ({ coterie, handleBack, handleForth, updateCoterie }) => {
               disabled={missionActuelle ? true : false}
             />
           </div>
-          <div className="flex justify-around">
+          <div className="flex justify-around mb-4">
             <ActionButton
               textButton={"Rappeler"}
               onClick={handleCancelMission}
