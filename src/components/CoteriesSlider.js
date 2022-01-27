@@ -6,6 +6,9 @@ const CoteriesSlider = ({ idSection }) => {
   const [coteries, setCoteries] = useState(null);
   const [focus, setFocus] = useState(0);
 
+  /**
+   * @description On idSection arrival, set coteries
+   */
   useEffect(() => {
     if (idSection) {
       getCoteriesBySection(idSection).then((res) => setCoteries(res));
@@ -19,7 +22,6 @@ const CoteriesSlider = ({ idSection }) => {
   };
 
   const goForth = () => {
-    console.log("taille", coteries.length, "focus", focus);
     // If we are at the end of the array
     if (focus === coteries.length - 1) {
       // go back to zero
@@ -31,7 +33,6 @@ const CoteriesSlider = ({ idSection }) => {
   };
 
   const goBack = () => {
-    console.log("taille", coteries.length, "focus", focus);
     // If we are at the beginning of the array
     if (focus === 0) {
       // go to the end of the array

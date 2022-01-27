@@ -16,7 +16,8 @@ import { Mission, Coterie as ClassCoterie } from "../services/supabase/classes";
  * @param {Object} Props
  * @param {ClassCoterie} Props.coterie
  * @param {function} Props.updateCoterie
- * @param {function} Props.handleFocus
+ * @param {function} Props.handleForth
+ * @param {function} Props.handleBack
  * @returns L'affichage détaillé d'une coterie
  */
 const Coterie = ({ coterie, handleBack, handleForth, updateCoterie }) => {
@@ -31,14 +32,17 @@ const Coterie = ({ coterie, handleBack, handleForth, updateCoterie }) => {
     getMissionsByCoterie(coterie.id).then((res) => {
       setMissions(res);
     });
-    setMissionActuelle(findLastMission());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coterie]);
+
+  useEffect(() => {
+    setMissionActuelle(findLastMission());
+  }, [missions]);
 
   /**
    * @description Trouve la dernière des missions effectuée par le groupe
    * @param {Mission[]} missions
-   * @returns {string} Titre de la mission en cours
+   * @returns {string} Titre de la mission en cour
    */
   const findLastMission = () => {
     let lastMission = 0;
