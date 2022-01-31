@@ -6,10 +6,11 @@ import { Mission as ClassMission } from "../services/supabase/classes";
  *
  * @param {Object} props
  * @param {ClassMission} props.mission
- * @param {Function} props.handleFocus
+ * @param {Function} props.handleForth
+ * @param {Function} props.handleBack
  * @returns L'affichage d'une mission sur la page principale
  */
-const Mission = ({ mission, handleFocus }) => {
+const Mission = ({ mission, handleForth, handleBack }) => {
   return (
     <Fragment>
       <h5 className="text-xl font-semibold mb-4">{mission?.title}</h5>
@@ -17,8 +18,7 @@ const Mission = ({ mission, handleFocus }) => {
       {/* boutons de switch sur le côté */}
       <div className="flex justify-between">
         <button
-          onClick={handleFocus}
-          id="back"
+          onClick={handleBack}
           className="p-4 max-w-xs max-h-16 bg-blue-400 rounded-xl shadow-md relative -left-8 hover:bg-blue-700 transform transition duration-300 ease-in-out focus:ring-4"
         >
           <svg
@@ -35,8 +35,7 @@ const Mission = ({ mission, handleFocus }) => {
           </svg>
         </button>
         <button
-          onClick={handleFocus}
-          id="forth"
+          onClick={handleForth}
           className="p-4 max-w-xs max-h-16 bg-blue-400 rounded-xl shadow-md relative -right-8 hover:bg-blue-700 transform transition duration-300 ease-in-out focus:ring-4"
         >
           <svg
