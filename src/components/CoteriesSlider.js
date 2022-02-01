@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { getCoteriesBySection } from "../services/supabase/supabase";
 import Coterie from "./Coterie";
 
-const CoteriesSlider = ({ idSection }) => {
+const CoteriesSlider = ({ sectionID }) => {
   const [coteries, setCoteries] = useState(null);
   const [focus, setFocus] = useState(0);
 
   /**
-   * @description On idSection arrival, set coteries
+   * @description On sectionID arrival, set coteries
    */
   useEffect(() => {
-    if (idSection) {
-      getCoteriesBySection(idSection).then((res) => setCoteries(res));
+    if (sectionID) {
+      getCoteriesBySection(sectionID).then((res) => setCoteries(res));
     }
-  }, [idSection]);
+  }, [sectionID]);
 
   const updateCoterie = (newCoterie) => {
     let newCoteries = [...coteries];
