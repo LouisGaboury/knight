@@ -336,3 +336,22 @@ export async function restCoterie(coterieID, coterieHP) {
     alert(error.error_description || error.message);
   }
 }
+
+/**
+ * @async
+ * @description Retourne les rapports d'une coterie
+ * @param {number} coterieID
+ */
+export async function getReportsByCoterie(coterieID) {
+  try {
+    const { data, error } = await supabase
+      .from("report")
+      .select()
+      .order("day", { ascending: false })
+      .eq("coterie_id", coterieID);
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
