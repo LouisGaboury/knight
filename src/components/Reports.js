@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import Dropdown from "./Dropdown";
+import { Fragment, useState, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { Coterie } from "../services/supabase/classes";
 import { getCoteriesBySection } from "../services/supabase/supabase";
@@ -16,7 +15,7 @@ const Report = ({ sectionID }) => {
   }, [sectionID]);
 
   return (
-    <div className="ml-6">
+    <div className="mx-6">
       {coteries?.map(
         /**
          * @param {Coterie} coterie La coterie itérée
@@ -24,11 +23,10 @@ const Report = ({ sectionID }) => {
          */
         (coterie, index) => {
           return (
-            <Dropdown key={index} title={`Coterie n°${coterie.id} ❤️`}>
-              <p>Ceci est un test de texte</p>
-              <p>Et ça c'en est un autre</p>
-              <p>Pour meubler le dropdown</p>
-            </Dropdown>
+            <Fragment>
+              <h5 className="text-xl font-medium">Coterie n°{coterie.id}</h5>
+              <hr className="border border-solid border-gray-600" />
+            </Fragment>
           );
         }
       )}
