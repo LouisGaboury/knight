@@ -28,7 +28,7 @@ const Section = () => {
         <h3 className="text-6xl pt-4 mb-8 text-center">Missions libres</h3>
         {section && <MissionsSlider section={section} />}
       </div>
-      <div className="w-4/5 shadow-md bg-gray-100 mx-auto mt-8">
+      <div className="w-4/5 shadow-md bg-gray-100 mx-auto my-8">
         <h3 className="text-6xl pt-4 mb-8 text-center">Rapports</h3>
         <Reports sectionID={section?.id} />
       </div>
