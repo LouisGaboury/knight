@@ -19,7 +19,7 @@ const Dropdown = (props) => {
 
   return (
     <div>
-      <h5 className="text-2xl flex items-center">
+      <h6 className="text-lg flex items-center">
         {props.title}
         <svg
           ref={arrowRef}
@@ -37,7 +37,7 @@ const Dropdown = (props) => {
             clipRule="evenodd"
           />
         </svg>
-      </h5>
+      </h6>
       {active && props.children}
     </div>
   );

@@ -27,7 +27,7 @@ const Report = ({ sectionID }) => {
             <div key={index}>
               <h5 className="text-xl font-medium">Coterie n°{coterie.id}</h5>
               <hr className="border border-solid border-gray-600" />
-              <ReportsList />
+              <ReportsList coterie={coterie} />
             </div>
           );
         }
