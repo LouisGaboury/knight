@@ -348,7 +348,8 @@ export async function getReportsByCoterie(coterieID) {
       .from("report")
       .select()
       .order("day", { ascending: false })
-      .eq("coterie_id", coterieID);
+      .eq("coterie_id", coterieID)
+      .limit(10);
     if (error) throw error;
     return data;
   } catch (error) {
