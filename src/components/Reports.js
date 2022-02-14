@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { Coterie } from "../services/supabase/classes";
 import { getCoteriesBySection } from "../services/supabase/supabase";
@@ -23,10 +23,10 @@ const Report = ({ sectionID }) => {
          */
         (coterie, index) => {
           return (
-            <Fragment>
+            <div key={index}>
               <h5 className="text-xl font-medium">Coterie n°{coterie.id}</h5>
               <hr className="border border-solid border-gray-600" />
-            </Fragment>
+            </div>
           );
         }
       )}
