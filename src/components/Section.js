@@ -1,8 +1,8 @@
 import { useEffect, useState, Fragment } from "react";
 import { getSectionByUser } from "../services/supabase/supabase";
 import { supabase } from "../supabaseClient";
-import CoteriesSlider from "./CoteriesSlider";
-import MissionsSlider from "./MissionsSlider";
+import CoteriesSlider from "./coterie/CoteriesSlider";
+import MissionsSlider from "./missions/MissionsSlider";
 import Reports from "./reports/Reports";
 
 const Section = () => {

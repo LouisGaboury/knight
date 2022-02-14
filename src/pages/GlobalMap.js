@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
-import Map from "../components/Map";
-import FocusMission from "../components/FocusMission";
+import Map from "../components/map/Map";
+import FocusMission from "../components/map/FocusMission";
 
 const GlobalMap = () => {
   const [trigger, setTrigger] = useState(false);

@@ -13,7 +13,7 @@ import { getMissions } from "../../services/supabase/supabase";
 // eslint-disable-next-line no-unused-vars
 import { Mission } from "../../services/supabase/classes";
 import { redIcon, greenIcon } from "../../services/leaflet/icons";
-import ActionButton from "./ActionButton";
+import ActionButton from "../utility/ActionButton";
 
 const arches = [
   {

@@ -3,10 +3,10 @@ import {
   getFreeCoteriesBySection,
   getFreeMissions,
   assignMission,
-} from "../services/supabase/supabase";
+} from "../../services/supabase/supabase";
 import Mission from "./Mission";
-import ActionButton from "./ActionButton";
-import { supabase } from "../supabaseClient";
+import ActionButton from "../utility/ActionButton";
+import { supabase } from "../../supabaseClient";
 
 const MissionsSlider = ({ section }) => {
   const [missions, setMissions] = useState(null);

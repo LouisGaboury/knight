@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { useNavigate } from "react-router-dom";
-import ActionButton from "./ActionButton";
+import ActionButton from "./utility/ActionButton";
 
 const SignIn = (props) => {
   const [userCredentials, setCredentials] = useState({

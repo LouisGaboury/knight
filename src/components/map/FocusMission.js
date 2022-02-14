@@ -1,15 +1,15 @@
 import { Fragment, useState, useEffect } from "react";
-import ActionButton from "./ActionButton";
+import ActionButton from "../utility/ActionButton";
 // eslint-disable-next-line no-unused-vars
-import { supabase } from "../supabaseClient";
+import { supabase } from "../../supabaseClient";
 // eslint-disable-next-line no-unused-vars
-import { Mission, Coterie } from "../services/supabase/classes";
+import { Mission, Coterie } from "../../services/supabase/classes";
 import {
   cancelMission,
   assignMission,
   getSectionByUser,
   getFreeCoteriesBySection,
-} from "../services/supabase/supabase";
+} from "../../services/supabase/supabase";
 
 /**
  * @param {Object} Props

@@ -1,16 +1,19 @@
+/* eslint-disable no-unused-vars */
 import { Fragment, useEffect, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import ActionButton from "./ActionButton";
+import ActionButton from "../utility/ActionButton";
 import {
   getSeneschalByID,
   getMissionsByCoterie,
   trainCoterie,
   restCoterie,
   cancelMission,
-} from "../services/supabase/supabase";
-// eslint-disable-next-line no-unused-vars
-import { Mission, Coterie as ClassCoterie } from "../services/supabase/classes";
+} from "../../services/supabase/supabase";
+import {
+  Mission,
+  Coterie as ClassCoterie,
+} from "../../services/supabase/classes";
 
 /**
  * @param {Object} Props
