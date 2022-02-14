@@ -163,7 +163,7 @@ const Coterie = ({ coterie, handleBack, handleForth, updateCoterie }) => {
             <li>Sénéchal : {seneschal.name}</li>
             <li>Rang : {coterie.rank}</li>
             <li>Mission actuelle : {missionActuelle?.title}</li>
-            <li>Missions réalisées : {missions?.length - 1}</li>
+            <li>Missions réalisées : {missions?.length}</li>
           </ul>
         </div>
         {/* boutons d'action */}
