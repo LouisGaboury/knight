@@ -64,6 +64,36 @@ function ReportsList({ coterie }) {
                   )}
                 </li>
               )}
+              {report.hope && (
+                <li className="flex">
+                  {report.hope > 0 ? (
+                    <Fragment>
+                      {plusIcon} La coterie a récupéré {report.hope} points
+                      d'espoir
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      {minusIcon} La coterie a perdu {report.hope} points
+                      d'espoir
+                    </Fragment>
+                  )}
+                </li>
+              )}
+              {report.rg && (
+                <li className="flex">
+                  {report.hope > 0 ? (
+                    <Fragment>
+                      {plusIcon} La coterie a récupéré {report.rg} ressources de
+                      guerre
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      {minusIcon} La coterie a perdu {report.rg} ressources de
+                      guerre
+                    </Fragment>
+                  )}
+                </li>
+              )}
             </ul>
           </Dropdown>
         );
