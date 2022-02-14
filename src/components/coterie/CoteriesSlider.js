@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCoteriesBySection } from "../services/supabase/supabase";
+import { getCoteriesBySection } from "../../services/supabase/supabase";
 import Coterie from "./Coterie";
 
 const CoteriesSlider = ({ sectionID }) => {

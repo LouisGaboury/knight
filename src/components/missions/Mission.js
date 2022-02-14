@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 // eslint-disable-next-line no-unused-vars
-import { Mission as ClassMission } from "../services/supabase/classes";
+import { Mission as ClassMission } from "../../services/supabase/classes";
 
 /**
  *

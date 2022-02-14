@@ -8,11 +8,11 @@ import {
   Polygon,
   LayerGroup,
 } from "react-leaflet";
-import { supabase } from "../supabaseClient";
-import { getMissions } from "../services/supabase/supabase";
+import { supabase } from "../../supabaseClient";
+import { getMissions } from "../../services/supabase/supabase";
 // eslint-disable-next-line no-unused-vars
-import { Mission } from "../services/supabase/classes";
-import { redIcon, greenIcon } from "../services/leaflet/icons";
+import { Mission } from "../../services/supabase/classes";
+import { redIcon, greenIcon } from "../../services/leaflet/icons";
 import ActionButton from "./ActionButton";
 
 const arches = [

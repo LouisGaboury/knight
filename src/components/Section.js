@@ -3,7 +3,7 @@ import { getSectionByUser } from "../services/supabase/supabase";
 import { supabase } from "../supabaseClient";
 import CoteriesSlider from "./CoteriesSlider";
 import MissionsSlider from "./MissionsSlider";
-import Reports from "./Reports";
+import Reports from "./reports/Reports";
 
 const Section = () => {
   const [section, setSection] = useState(null);

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
-import { Coterie } from "../services/supabase/classes";
-import { getCoteriesBySection } from "../services/supabase/supabase";
+import { Coterie } from "../../services/supabase/classes";
+import { getCoteriesBySection } from "../../services/supabase/supabase";
 
 const Report = ({ sectionID }) => {
   const [coteries, setCoteries] = useState();
