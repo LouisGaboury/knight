@@ -180,6 +180,26 @@ export async function restCoterie(coterieID, coterieHP) {
   }
 }
 
+/**
+ * @async
+ * @description Change the active value of one coterie
+ * @param {number} coterieID Coterie's ID
+ * @param {boolean} coterieActive Is the coterie active or not
+ * @returns {boolean} The new state of active
+ */
+export async function toggleActive(coterieID, coterieActive) {
+  try {
+    const { data: coterie, error } = await supabase
+      .from("coterie")
+      .update({ active: !coterieActive })
+      .eq("id", coterieID);
+    if (error) throw error;
+    return coterie.active;
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
 // SENESCHAL
 
 /**
