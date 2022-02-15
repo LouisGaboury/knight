@@ -1,6 +1,8 @@
 import { supabase } from "../../supabaseClient";
 import { Section, Coterie, Seneschal, Mission } from "./classes";
 
+// LORD
+
 /**
  * @async
  * @description Permet de retrouver un Lord en fonction de l'utilisateur
@@ -21,6 +23,8 @@ export async function findLordByUser(userID) {
     alert(error.error_description || error.message);
   }
 }
+
+// SECTION
 
 /**
  * @async
@@ -47,6 +51,8 @@ export async function getSectionByUser(userID) {
     alert(error.error_description || error.message);
   }
 }
+
+// COTERIE
 
 /**
  * @async
@@ -103,6 +109,81 @@ export async function getFreeCoteriesBySection(sectionID) {
 
 /**
  * @async
+ * @description Donne 10px de plus à une coterie. Si elle atteint 100 px : lui donne un niveau de plus
+ * @param {number} coterieID ID de la coterie à entrainer
+ * @param {number} coterieXP XP de la coterie qui est entrainée
+ * @param {number} coterieRank Rank de la coterie (rookie, vétérans, élite)
+ * @returns {Promise<Coterie>} La coterie avec les valeurs mises à jour
+ */
+export async function trainCoterie(coterieID, coterieXP, coterieRank) {
+  try {
+    // Si la coterie ne passe pas de niveau
+    if (coterieXP < 90) {
+      const { data, error } = await supabase
+        .from("coterie")
+        .update({ xp: coterieXP + 10 })
+        .match({ id: coterieID });
+      if (error) throw error;
+      return data[0];
+      // Si la coterie passe au rang supérieur
+    } else {
+      if (coterieRank === "rookie") {
+        // rookie -> vétérans
+        const { data, error } = await supabase
+          .from("coterie")
+          .update({ xp: 0, rank: "vétérans" })
+          .match({ id: coterieID });
+        if (error) throw error;
+        return data[0];
+      } else {
+        // vétarans -> élites
+        const { data, error } = await supabase
+          .from("coterie")
+          .update({ xp: 0, rank: "élite" })
+          .match({ id: coterieID });
+        if (error) throw error;
+        return data[0];
+      }
+    }
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
+/**
+ * @async
+ * @description Rend 20 HP à une coterie et renvoie les valeurs modifiées
+ * @param {number} coterieID ID de la coterie qui se repose
+ * @param {number} coterieHP HP de la coterie avant repos
+ * @returns {Promise<>}
+ */
+export async function restCoterie(coterieID, coterieHP) {
+  try {
+    if (coterieHP <= 80) {
+      const { data, error } = await supabase
+        .from("coterie")
+        .update({ health: coterieHP + 20 })
+        .match({ id: coterieID });
+      if (error) throw error;
+      return data[0];
+    } else {
+      // Si la coterie allait dépasser 100HP : ramenés à 100 automatiquement
+      const { data, error } = await supabase
+        .from("coterie")
+        .update({ health: 100 })
+        .match({ id: coterieID });
+      if (error) throw error;
+      return data[0];
+    }
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
+// SENESCHAL
+
+/**
+ * @async
  * @description Permet de trouver un sénéchal par l'ID de sa section
  * @param {number} seneschalID L'ID du sénéchal recherché
  * @returns {Promise<Seneschal>} L'objet Seneschal entier
@@ -125,6 +206,8 @@ export async function getSeneschalByID(seneschalID) {
     alert(error.error_description || error.message);
   }
 }
+
+// MISSION
 
 /**
  * @async
@@ -265,78 +348,7 @@ export async function assignMission(missionID, coterieID) {
   }
 }
 
-/**
- * @async
- * @description Donne 10px de plus à une coterie. Si elle atteint 100 px : lui donne un niveau de plus
- * @param {number} coterieID ID de la coterie à entrainer
- * @param {number} coterieXP XP de la coterie qui est entrainée
- * @param {number} coterieRank Rank de la coterie (rookie, vétérans, élite)
- * @returns {Promise<Coterie>} La coterie avec les valeurs mises à jour
- */
-export async function trainCoterie(coterieID, coterieXP, coterieRank) {
-  try {
-    // Si la coterie ne passe pas de niveau
-    if (coterieXP < 90) {
-      const { data, error } = await supabase
-        .from("coterie")
-        .update({ xp: coterieXP + 10 })
-        .match({ id: coterieID });
-      if (error) throw error;
-      return data[0];
-      // Si la coterie passe au rang supérieur
-    } else {
-      if (coterieRank === "rookie") {
-        // rookie -> vétérans
-        const { data, error } = await supabase
-          .from("coterie")
-          .update({ xp: 0, rank: "vétérans" })
-          .match({ id: coterieID });
-        if (error) throw error;
-        return data[0];
-      } else {
-        // vétarans -> élites
-        const { data, error } = await supabase
-          .from("coterie")
-          .update({ xp: 0, rank: "élite" })
-          .match({ id: coterieID });
-        if (error) throw error;
-        return data[0];
-      }
-    }
-  } catch (error) {
-    alert(error.error_description || error.message);
-  }
-}
-
-/**
- * @async
- * @description Rend 20 HP à une coterie et renvoie les valeurs modifiées
- * @param {number} coterieID ID de la coterie qui se repose
- * @param {number} coterieHP HP de la coterie avant repos
- * @returns {Promise<>}
- */
-export async function restCoterie(coterieID, coterieHP) {
-  try {
-    if (coterieHP <= 80) {
-      const { data, error } = await supabase
-        .from("coterie")
-        .update({ health: coterieHP + 20 })
-        .match({ id: coterieID });
-      if (error) throw error;
-      return data[0];
-    } else {
-      // Si la coterie allait dépasser 100HP : ramenés à 100 automatiquement
-      const { data, error } = await supabase
-        .from("coterie")
-        .update({ health: 100 })
-        .match({ id: coterieID });
-      if (error) throw error;
-      return data[0];
-    }
-  } catch (error) {
-    alert(error.error_description || error.message);
-  }
-}
+// REPORT
 
 /**
  * @async
