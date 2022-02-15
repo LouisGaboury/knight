@@ -15,10 +15,12 @@ export async function findLordByUser(userID) {
     const { data: lord, error } = await supabase
       .from("lord")
       .select("*")
-      .eq("joueur_id", userID);
+      .eq("joueur_id", userID)
+      .limit(1)
+      .single();
     // Fixe le nom du lord dans le state pour affichage
     if (error) throw error;
-    return lord[0];
+    return lord;
   } catch (error) {
     alert(error.error_description || error.message);
   }
@@ -38,14 +40,16 @@ export async function getSectionByUser(userID) {
     const { data, error } = await supabase
       .from("lord")
       .select("name, lord_id:section ( name, id, overview, lord_id )")
-      .eq("joueur_id", userID);
+      .eq("joueur_id", userID)
+      .limit(1)
+      .single();
     if (error) throw error;
     // retourne le nom et l'id de la section du joueur
     return new Section(
-      data[0].lord_id[0].id,
-      data[0].lord_id[0].name,
-      data[0].lord_id[0].overview,
-      data[0].lord_id[0].lord_id
+      data.lord_id[0].id,
+      data.lord_id[0].name,
+      data.lord_id[0].overview,
+      data.lord_id[0].lord_id
     );
   } catch (error) {
     alert(error.error_description || error.message);
@@ -119,30 +123,36 @@ export async function trainCoterie(coterieID, coterieXP, coterieRank) {
   try {
     // Si la coterie ne passe pas de niveau
     if (coterieXP < 90) {
-      const { data, error } = await supabase
+      const { data: coterie, error } = await supabase
         .from("coterie")
         .update({ xp: coterieXP + 10 })
-        .match({ id: coterieID });
+        .match({ id: coterieID })
+        .limit(1)
+        .single();
       if (error) throw error;
-      return data[0];
+      return coterie;
       // Si la coterie passe au rang supérieur
     } else {
       if (coterieRank === "rookie") {
         // rookie -> vétérans
-        const { data, error } = await supabase
+        const { data: coterie, error } = await supabase
           .from("coterie")
           .update({ xp: 0, rank: "vétérans" })
-          .match({ id: coterieID });
+          .match({ id: coterieID })
+          .limit(1)
+          .single();
         if (error) throw error;
-        return data[0];
+        return coterie;
       } else {
         // vétarans -> élites
-        const { data, error } = await supabase
+        const { data: coterie, error } = await supabase
           .from("coterie")
           .update({ xp: 0, rank: "élite" })
-          .match({ id: coterieID });
+          .match({ id: coterieID })
+          .limit(1)
+          .single();
         if (error) throw error;
-        return data[0];
+        return coterie;
       }
     }
   } catch (error) {
@@ -192,7 +202,9 @@ export async function toggleActive(coterieID, coterieActive) {
     const { data: coterie, error } = await supabase
       .from("coterie")
       .update({ active: !coterieActive })
-      .eq("id", coterieID);
+      .eq("id", coterieID)
+      .limit(1)
+      .single();
     if (error) throw error;
     console.log(coterie);
     return coterie.active;
@@ -211,17 +223,19 @@ export async function toggleActive(coterieID, coterieActive) {
  */
 export async function getSeneschalByID(seneschalID) {
   try {
-    const { data, error } = await supabase
+    const { data: seneschal, error } = await supabase
       .from("seneschal")
       .select()
-      .eq("id", seneschalID);
+      .eq("id", seneschalID)
+      .limit(1)
+      .single();
     if (error) throw error;
     return new Seneschal(
-      data[0].id,
-      data[0].name,
-      data[0].weapons,
-      data[0].modules,
-      data[0].armor
+      seneschal.id,
+      seneschal.name,
+      seneschal.weapons,
+      seneschal.modules,
+      seneschal.armor
     );
   } catch (error) {
     alert(error.error_description || error.message);
@@ -342,7 +356,7 @@ export async function cancelMission(missionID) {
   try {
     const { error } = await supabase
       .from("mission")
-      .update({ coterie_id: null, status: "Libre" })
+      .update({ coterie_id: null, status: "Libre" }, { returning: "minimal" })
       .match({ id: missionID });
     if (error) throw error;
   } catch (error) {
@@ -360,7 +374,10 @@ export async function assignMission(missionID, coterieID) {
   try {
     const { error } = await supabase
       .from("mission")
-      .update({ coterie_id: coterieID, status: "En cours" })
+      .update(
+        { coterie_id: coterieID, status: "En cours" },
+        { returning: "minimal" }
+      )
       .match({ id: missionID })
       .is("coterie_id", null);
     if (error) throw error;
