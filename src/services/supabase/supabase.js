@@ -125,7 +125,7 @@ export async function trainCoterie(coterieID, coterieXP, coterieRank) {
     if (coterieXP < 90) {
       const { data: coterie, error } = await supabase
         .from("coterie")
-        .update({ xp: coterieXP + 10 })
+        .update({ xp: coterieXP + 10, active: true })
         .match({ id: coterieID })
         .limit(1)
         .single();
@@ -137,7 +137,7 @@ export async function trainCoterie(coterieID, coterieXP, coterieRank) {
         // rookie -> vétérans
         const { data: coterie, error } = await supabase
           .from("coterie")
-          .update({ xp: 0, rank: "vétérans" })
+          .update({ xp: 0, rank: "vétérans", active: true })
           .match({ id: coterieID })
           .limit(1)
           .single();
@@ -147,7 +147,7 @@ export async function trainCoterie(coterieID, coterieXP, coterieRank) {
         // vétarans -> élites
         const { data: coterie, error } = await supabase
           .from("coterie")
-          .update({ xp: 0, rank: "élite" })
+          .update({ xp: 0, rank: "élite", active: true })
           .match({ id: coterieID })
           .limit(1)
           .single();
@@ -170,20 +170,22 @@ export async function trainCoterie(coterieID, coterieXP, coterieRank) {
 export async function restCoterie(coterieID, coterieHP) {
   try {
     if (coterieHP <= 80) {
-      const { data, error } = await supabase
+      const { data: coterie, error } = await supabase
         .from("coterie")
-        .update({ health: coterieHP + 20 })
-        .match({ id: coterieID });
+        .update({ health: coterieHP + 20, active: true })
+        .match({ id: coterieID })
+        .limit(1)
+        .single();
       if (error) throw error;
-      return data[0];
+      return coterie;
     } else {
       // Si la coterie allait dépasser 100HP : ramenés à 100 automatiquement
-      const { data, error } = await supabase
+      const { data: coterie, error } = await supabase
         .from("coterie")
-        .update({ health: 100 })
+        .update({ health: 100, active: true })
         .match({ id: coterieID });
       if (error) throw error;
-      return data[0];
+      return coterie;
     }
   } catch (error) {
     alert(error.error_description || error.message);
@@ -192,22 +194,37 @@ export async function restCoterie(coterieID, coterieHP) {
 
 /**
  * @async
- * @description Change the active value of one coterie
+ * @description Set a coterie to active
  * @param {number} coterieID Coterie's ID
- * @param {boolean} coterieActive Is the coterie active or not
- * @returns {boolean} The new state of active
+ * @returns {boolean} The operation is successful or not
  */
-export async function toggleActive(coterieID, coterieActive) {
+export async function setActive(coterieID) {
   try {
-    const { data: coterie, error } = await supabase
+    const { error } = await supabase
       .from("coterie")
-      .update({ active: !coterieActive })
-      .eq("id", coterieID)
-      .limit(1)
-      .single();
+      .update({ active: true }, { returning: "minimal" })
+      .eq("id", coterieID);
     if (error) throw error;
-    console.log(coterie);
-    return coterie.active;
+    return true;
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
+/**
+ * @async
+ * @description Set a coterie to inactive
+ * @param {number} coterieID Coterie's ID
+ * @returns {boolean} The operation is successful or not
+ */
+export async function setInactive(coterieID) {
+  try {
+    const { error } = await supabase
+      .from("coterie")
+      .update({ active: false }, { returning: "minimal" })
+      .eq("id", coterieID);
+    if (error) throw error;
+    return true;
   } catch (error) {
     alert(error.error_description || error.message);
   }
@@ -350,15 +367,19 @@ export async function getMissions() {
 /**
  * @async
  * @description Retire une coterie engagée sur une mission
- * @param {number} missionID L'ID de la mission à annulée
+ * @param {number} missionID L'ID de la mission
+ * @param {number} coterieID l'ID de la coterie
+ * @returns {boolean} L'opération est un succès
  */
-export async function cancelMission(missionID) {
+export async function cancelMission(missionID, coterieID) {
   try {
     const { error } = await supabase
       .from("mission")
       .update({ coterie_id: null, status: "Libre" }, { returning: "minimal" })
       .match({ id: missionID });
     if (error) throw error;
+    setInactive(coterieID);
+    return true;
   } catch (error) {
     alert(error.error_description || error.message);
   }
@@ -369,6 +390,7 @@ export async function cancelMission(missionID) {
  * @description Assigne une coterie à une mission
  * @param {number} missionID l'ID de la mission
  * @param {number} coterieID l'ID de la coterie
+ * @returns {boolean} L'opération est un succès
  */
 export async function assignMission(missionID, coterieID) {
   try {
@@ -381,6 +403,8 @@ export async function assignMission(missionID, coterieID) {
       .match({ id: missionID })
       .is("coterie_id", null);
     if (error) throw error;
+    setActive(coterieID);
+    return true;
   } catch (error) {
     alert("La mission a déjà été pourvue par quelqu'un d'autre");
   }

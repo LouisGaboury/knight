@@ -35,7 +35,7 @@ function FocusMission({ trigger, setTrigger, mission, setMission }) {
 
   const handleCancelMission = async () => {
     // On modifie la mission dans la BDD
-    await cancelMission(mission.id);
+    await cancelMission(mission.id, selectedCoterieID);
     // Pour éviter un nouvel appel à la BDD, on change la mission en interne au front
     let newMission = mission;
     newMission.status = "Libre";

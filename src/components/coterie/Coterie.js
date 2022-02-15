@@ -80,8 +80,11 @@ const Coterie = ({ coterie, handleBack, handleForth, updateCoterie }) => {
   };
 
   const handleCancelMission = async () => {
-    await cancelMission(missionActuelle.id);
+    await cancelMission(missionActuelle.id, coterie.id);
     setMissionActuelle(null);
+    let modifiedCoterie = coterie;
+    modifiedCoterie.active = false;
+    updateCoterie(modifiedCoterie);
   };
 
   return (
