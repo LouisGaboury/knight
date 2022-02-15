@@ -71,7 +71,8 @@ export async function getCoteriesBySection(sectionID) {
           coterie.rank,
           coterie.health,
           coterie.hope,
-          coterie.xp
+          coterie.xp,
+          coterie.active
         )
       );
     });

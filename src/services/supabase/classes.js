@@ -52,8 +52,9 @@ export class Coterie {
    * @param {number} health
    * @param {number} hope
    * @param {number} xp
+   * @param {boolean} active
    */
-  constructor(id, section_id, seneschal_id, rank, health, hope, xp) {
+  constructor(id, section_id, seneschal_id, rank, health, hope, xp, active) {
     /**
      * @type {number}
      * @public
@@ -89,6 +90,11 @@ export class Coterie {
      * @public
      */
     this.xp = xp;
+    /**
+     * @type {boolean}
+     * @public
+     */
+    this.active = active;
   }
 }
 

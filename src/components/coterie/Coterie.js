@@ -164,6 +164,7 @@ const Coterie = ({ coterie, handleBack, handleForth, updateCoterie }) => {
             <li>Rang : {coterie.rank}</li>
             <li>Mission actuelle : {missionActuelle?.title}</li>
             <li>Missions réalisées : {missions?.length}</li>
+            <li>En activité : {coterie.active ? "Oui" : "Non"}</li>
           </ul>
         </div>
         {/* boutons d'action */}
