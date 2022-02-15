@@ -194,6 +194,7 @@ export async function toggleActive(coterieID, coterieActive) {
       .update({ active: !coterieActive })
       .eq("id", coterieID);
     if (error) throw error;
+    console.log(coterie);
     return coterie.active;
   } catch (error) {
     alert(error.error_description || error.message);
