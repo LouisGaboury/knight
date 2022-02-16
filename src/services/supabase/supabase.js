@@ -56,6 +56,25 @@ export async function getSectionByUser(userID) {
   }
 }
 
+/**
+ * @async
+ * @description Set the section's activity to true
+ * @param {number} sectionID Section's id
+ * @returns {boolean} Operation succeed
+ */
+export async function confirmActivity(sectionID) {
+  try {
+    const { error } = await supabase
+      .from("section")
+      .update({ active: true }, { returning: "minimal" })
+      .eq("id", sectionID);
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    alert(error.error_description || error.message);
+  }
+}
+
 // COTERIE
 
 /**

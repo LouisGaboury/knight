@@ -1,9 +1,13 @@
 import { useEffect, useState, Fragment } from "react";
-import { getSectionByUser } from "../services/supabase/supabase";
+import {
+  getSectionByUser,
+  confirmActivity,
+} from "../services/supabase/supabase";
 import { supabase } from "../supabaseClient";
 import CoteriesSlider from "./coterie/CoteriesSlider";
 import MissionsSlider from "./missions/MissionsSlider";
 import Reports from "./reports/Reports";
+import ActionButton from "./utility/ActionButton";
 
 const Section = () => {
   const [section, setSection] = useState(null);
@@ -13,6 +17,11 @@ const Section = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleConfirmActivity = async () => {
+    const result = await confirmActivity(section.id);
+    if (result) alert("Votre demande a bien été envoyée");
+  };
+
   return (
     <Fragment>
       <div className="w-4/5 shadow-md bg-gray-100 mx-auto mt-8">
@@ -21,6 +30,10 @@ const Section = () => {
           Ici on affichera les diverses infos relatives à la section : RG,
           objets possédés, etc. Ca sera fixe
         </p>
+        <ActionButton
+          textButton="Passer le jour"
+          onClick={handleConfirmActivity}
+        />
         <hr className="border-2 border-solid" />
         <CoteriesSlider sectionID={section?.id} />
       </div>
