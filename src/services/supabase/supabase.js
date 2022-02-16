@@ -183,7 +183,9 @@ export async function restCoterie(coterieID, coterieHP) {
       const { data: coterie, error } = await supabase
         .from("coterie")
         .update({ health: 100, active: true })
-        .match({ id: coterieID });
+        .match({ id: coterieID })
+        .limit(1)
+        .single();
       if (error) throw error;
       return coterie;
     }
