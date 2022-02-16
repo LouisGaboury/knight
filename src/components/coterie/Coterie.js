@@ -176,12 +176,12 @@ const Coterie = ({ coterie, handleBack, handleForth, updateCoterie }) => {
             <ActionButton
               textButton={"Se reposer"}
               onClick={handleRest}
-              disabled={missionActuelle ? true : false}
+              disabled={missionActuelle || coterie.active ? true : false}
             />
             <ActionButton
               textButton={"Entrainer"}
               onClick={handleTraining}
-              disabled={missionActuelle ? true : false}
+              disabled={missionActuelle || coterie.active ? true : false}
             />
           </div>
           <div className="flex justify-around mb-4">
