@@ -6,7 +6,7 @@ const ActionButton = (props) => {
         props.disabled
           ? "bg-gray-800"
           : "bg-blue-400 focus:ring-4 hover:bg-blue-700 transform transition duration-300 ease-in-out"
-      }`}
+      } ${props.mt && `mt-${props.mt}`}`}
       disabled={props.disabled}
     >
       <p className="text-blue-200 font-bold text-center text-lg my-0">
