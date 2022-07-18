@@ -11,13 +11,12 @@ const Home = () => {
 
   useEffect(() => {
     getSectionByUser(supabase.auth.user().id).then((res) => setSection(res));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Fragment>
       <Header />
-      <Section section={section} />
+      <Section section={section} mt="8" />
       <div className="w-4/5 shadow-md bg-gray-100 mx-auto mt-8">
         <h3 className="text-6xl pt-4 mb-8 text-center">Missions libres</h3>
         {section && <MissionsSlider section={section} />}
