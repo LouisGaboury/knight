@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { confirmActivity } from "../services/supabase/supabase";
 import CoteriesSlider from "./coterie/CoteriesSlider";
 import ActionButton from "./utility/ActionButton";
