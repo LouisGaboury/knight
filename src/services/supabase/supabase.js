@@ -184,7 +184,7 @@ export async function trainCoterie(coterieID, coterieXP, coterieRank) {
  * @description Rend 20 HP à une coterie et renvoie les valeurs modifiées
  * @param {number} coterieID ID de la coterie qui se repose
  * @param {number} coterieHP HP de la coterie avant repos
- * @returns {Promise<>}
+ * @returns {Promise<Coterie>} La coterie avec ses valeurs updated
  */
 export async function restCoterie(coterieID, coterieHP) {
   try {
